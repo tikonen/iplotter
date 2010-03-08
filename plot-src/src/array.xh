@@ -1,0 +1,148 @@
+/*
+ * Plot - plot time-based data on screen and to file with interactive controls
+ * Copyright (C) 2006  Jonas Berlin <xkr47@outerspace.dyndns.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ ****
+ * array - array functions with optional interpolating binary search
+ * functionality
+ */
+
+#include <stdio.h>
+
+#include "gnu_extensions.xh"
+#include "mem.xh"
+#include "stringutil.xh"
+#include "misc-util.xh"
+#include "plot-types.xh"
+
+#define ARRAY_DEFAULTTYPE_NONE 159000
+#define ARRAY_DEFAULTTYPE_ZERO 159001
+#define ARRAY_DEFAULTTYPE_CUSTOM 159002
+#define ARRAY_DEFAULTTYPE_CUSTOM_MALLOC 159003
+
+#define ARRAY_MAX_INC_CHUNK (8 * 1024 * 1024)
+
+#deftemplate array(DATATYPE, FUNCPREFIX, DEFAULT_TYPE)
+
+#if DEFAULT_TYPE != ARRAY_DEFAULTTYPE_CUSTOM && DEFAULT_TYPE != ARRAY_DEFAULTTYPE_ZERO && DEFAULT_TYPE != ARRAY_DEFAULTTYPE_NONE && DEFAULT_TYPE != ARRAY_DEFAULTTYPE_CUSTOM_MALLOC
+#error __TEMPLATE_FILE__:__TEMPLATE_LINE__: Unknown defaulttype DEFAULT_TYPE given to template
+#endif
+
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM_MALLOC
+typedef DATATYPE *FUNCPREFIX_data_t;
+#else
+typedef DATATYPE FUNCPREFIX_data_t;
+#endif
+
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM || DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM_MALLOC
+#define FUNCPREFIX_DECLARE(VAR_SUFFIX) FUNCPREFIX_data_t *VAR_SUFFIX; DATATYPE VAR_SUFFIX ## _dflt; int VAR_SUFFIX ## _count; int VAR_SUFFIX ## _alloc;
+#else
+#define FUNCPREFIX_DECLARE(VAR_SUFFIX) FUNCPREFIX_data_t *VAR_SUFFIX; int VAR_SUFFIX ## _count; int VAR_SUFFIX ## _alloc;
+#endif
+
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM || DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM_MALLOC
+#define FUNCPREFIX_set_length(VAR_SUFFIX, size) FUNCPREFIX_set_length_int(&(VAR_SUFFIX), &(VAR_SUFFIX ## _dflt), &(VAR_SUFFIX ## _count), &(VAR_SUFFIX ## _alloc), size)
+#else
+#define FUNCPREFIX_set_length(VAR_SUFFIX, size) FUNCPREFIX_set_length_int(&(VAR_SUFFIX), &(VAR_SUFFIX ## _count), &(VAR_SUFFIX ## _alloc), size)
+#endif
+
+#define assert_x(must_be_true) do { if(unlikely(!(must_be_true))) { fprintf(stderr, "Assertion '%s' failed on %s:%d\n", #must_be_true, __FILE__, __LINE__); exit(1); }} while(0)
+
+NONNULL __attribute__((noinline)) static void FUNCPREFIX_set_length_int_alloc_more(FUNCPREFIX_data_t **arr,
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM
+										   DATATYPE *dflt,
+#endif
+										   int *count, int *num_alloc, int size) {
+   int oldlen = *num_alloc;
+   int baselen;
+   if(oldlen > 0) {
+      baselen = min(oldlen, (int)(ARRAY_MAX_INC_CHUNK / sizeof(FUNCPREFIX_data_t)));
+   } else {
+      baselen = 4096 / sizeof(FUNCPREFIX_data_t);
+   }
+
+   // round new size upwards to next multiple of baselen
+   // if baselen = 512, size = 513 -> 1024
+   // if baselen = 512, size = 1024 -> 1024
+   // if baselen = 512, size = 1025 -> 1536
+   *num_alloc = ceil_div(size, baselen);
+
+   assert_x((oldlen == 0) == (*arr == NULL));
+   //printf("realloc %p %p -> ", arr, *arr);
+   *arr = realloc_c(*arr, sizeof(FUNCPREFIX_data_t) * *num_alloc);
+   //printf("%p %d req %d\n", *arr, *num_alloc, size);
+   assert_x(size <= *num_alloc);
+   //    printf("%d -> %d = %d\n", oldlen, *num_alloc, *num_alloc - oldlen);
+
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM
+   memmset(*arr + oldlen, dflt, sizeof(FUNCPREFIX_data_t), *num_alloc - oldlen);
+#elif DEFAULT_TYPE == ARRAY_DEFAULTTYPE_ZERO
+   bzero(*arr + oldlen, sizeof(FUNCPREFIX_data_t) * (*num_alloc - oldlen));
+#endif
+}
+
+
+NONNULL static inline void FUNCPREFIX_set_length_int(FUNCPREFIX_data_t **arr,
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM || DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM_MALLOC
+						     DATATYPE *dflt,
+#endif
+						     int *count, int *num_alloc, int size) {
+   int oldlen = *num_alloc;
+   if(unlikely(oldlen < size)) {
+      FUNCPREFIX_set_length_int_alloc_more(arr,
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM
+					   dflt,
+#endif
+					   count, num_alloc, size);
+   }
+   if(likely(*count < size)) {
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM_MALLOC
+      int i;
+      for(i=*count; i<size; ++i) {
+	 (*arr)[i] = malloc(sizeof(DATATYPE));
+	 memcpy((*arr)[i], dflt, sizeof(DATATYPE));
+      }
+#endif
+   } else {
+#if DEFAULT_TYPE == ARRAY_DEFAULTTYPE_CUSTOM_MALLOC
+      // it's up to the user to free them
+#endif
+   }
+   *count = size;
+}
+
+#define FUNCPREFIX_free(VAR_SUFFIX) FUNCPREFIX_free_int(&(VAR_SUFFIX), &(VAR_SUFFIX ## _count), &(VAR_SUFFIX ## _alloc))
+
+// you can reuse the array after this, it just frees everything and resets counters
+NONNULL static void FUNCPREFIX_free_int(FUNCPREFIX_data_t **arr, int *count, int *num_alloc) {
+   if(!*arr) return;
+   free(*arr);
+   *count = 0;
+   *num_alloc = 0;
+   *arr = NULL;
+}
+
+#undef assert_x
+
+#endtemplate
+
+/*
+ * Local variables:
+ * c-file-style: "ellemtel"
+ * c-file-offsets: ((c . c-lineup-dont-change) (statement-cont . (lambda (le) (if (save-excursion (goto-char (cdr le)) (looking-at "return")) (c-lineup-java-inher le) (c-lineup-math le)))))
+ * End:
+ */

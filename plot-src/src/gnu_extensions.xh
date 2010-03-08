@@ -1,0 +1,160 @@
+#ifdef __GNUC__
+
+/**
+ * If a function takes printf-style args, add this to the end of the
+ * function prototype. First argument is numbered 1.
+ *
+ * Examples:
+ * FORMAT(1, 2) int printf(char *frmt, ...);
+ * FORMAT(2, 3) int fprintf(FILE *file, char *frmt, ...);
+ * FORMAT(3, 5) int my_strange_printf(char *foo, int bar, char *frmt, void * plop, ...) { ... }
+ */
+#define FORMAT(x,y) __attribute ((format (printf, x, y)))
+
+/**
+ * This can be attached to static variables, static functions and
+ * function parameters to indicate that they even if they aren't used
+ * no warning should be generated.
+ *
+ * Examples:
+ * UNUSED static int foo;
+ * UNUSED static void do_something(void);
+ * void bar(int usedarg, UNUSED int unusedarg);
+ */
+#define UNUSED __attribute__ ((unused))
+
+/**
+ * Issue a warning if the given function / variable is used..
+ *
+ * Examples:
+ * DEPRECATED int foo;
+ * DEPRECATED int bar(void);
+ */
+#define DEPRECATED __attribute__ ((deprecated))
+
+/**
+ * Declare a function not to return. Can optimize code like:
+ *
+ * NORETURN void bailout(void);
+ *
+ * // ...
+ *
+ *   if(ptr == NULL)
+ *     bailout();
+ *   printf("Everything's fine\n");
+ */
+#define NORETURN __attribute__ ((noreturn))
+
+/**
+ * Declare a function to be a signal (SIGINT etc) handler.
+ *
+ * Example:
+ * SIGFUNC void handle_sigint(int num);
+ */
+// using this generates a warning.. so not defined for now..
+//#define SIGFUNC __attribute__ ((signal))
+#define SIGFUNC
+
+/**
+ * Declare a function not to be instrumented.
+ *
+ * Example:
+ * NOINSTRUMENT void foofunc(void);
+ */
+#define NOINSTRUMENT __attribute__ ((no_instrument_function))
+
+/**
+ * Declare that NONE of the pointer parameters of a function shall be
+ * NULL.
+ *
+ * Example:
+ * NONNULL void foofunc(void *foo, void *bar, int zot);
+ */
+#define NONNULL __attribute__ ((nonnull))
+
+/**
+ * Declare that a pointer parameter of a function shall not be NULL.
+ * First argument is numbered 1.
+ *
+ * Example:
+ * NONNULL_ARG(1) void foofunc(void *foo, int bar, void *zot);
+ */
+#define NONNULL_ARG(x) __attribute__ ((nonnull (x)))
+
+/**
+ * Declare that the return value of a function must not be ignored.
+ *
+ * Example:
+ * WARN_UNUSED_RESULT int foofunc(void);
+ */
+#define WARN_UNUSED_RESULT __attribute__ ((warn_unused_result))
+
+/**
+ * Declare that the function should be exported in the ELF file.
+ *
+ * Example:
+ * LIBEXPORT int foofunc(void);
+ */
+#define LIBEXPORT __attribute__ ((visibility ("default")))
+
+/**
+ * For functions that:
+ *  - read arguments
+ *  - read global variables
+ *  - no effect except return value
+ *
+ * Many functions have no effects except the return value and their
+ * return value depends only on the parameters and/or global
+ * variables.
+ *
+ * Example:
+ * PURE int foofunc(void);
+ */
+#define PURE __attribute__ ((pure))
+
+/**
+ * For functions that:
+ *  - read arguments
+ *  - don't use global variables
+ *  - no effect except return value
+ *
+ * Many functions do not examine any values except their arguments,
+ * and have no effects except the return value. Stricter than PURE.
+ *
+ * Example:
+ * CONST int foofunc(void);
+ */
+// const doesn't work well with 3.3.x, 4.0.x so let's just use pure
+#define CONST __attribute__ ((pure))
+
+#define MALLOC __attribute__ ((__malloc__))
+
+# define likely(x) __builtin_expect ((long)!!(x), 1L)
+# define unlikely(x) __builtin_expect ((long)!!(x), 0L)
+
+#else
+
+#define FORMAT(x,y)
+#define UNUSED
+#define DEPRECATED
+#define NORETURN
+#define SIGFUNC
+#define NOINSTRUMENT
+#define NONNULL
+#define NONNULL_ARG(x)
+#define WARN_UNUSED_RESULT
+#define LIBEXPORT
+#define PURE
+#define CONST
+#define MALLOC
+#define likely(x) (x)
+#define unlikely(x) (x)
+
+#endif
+
+/*
+ * Local variables:
+ * c-file-style: "ellemtel"
+ * c-file-offsets: ((c . c-lineup-dont-change) (statement-cont . (lambda (le) (if (save-excursion (goto-char (cdr le)) (looking-at "return")) (c-lineup-java-inher le) (c-lineup-math le)))))
+ * End:
+ */

@@ -1,0 +1,145 @@
+#!/usr/bin/perl -w
+#
+# if you don't have Net-SNMP for perl, install in fedora with this
+# command:
+#
+#  yum install perl-Net-SNMP perl-Time-HiRes net-snmp-utils
+#
+# The net-snmp-utils above is only needed if you want to support
+# textual OIDs like HOST-RESOURCES-MIB::hrStorageUsed.5
+
+use Getopt::Std;
+use Net::SNMP;
+use Time::HiRes qw(sleep time);
+use strict;
+
+# SNMP::MIB::Compiler if name -> oid resolving needed, no fedora
+# package though :/
+
+my %opts = (
+	    "h" => "localhost",
+	    "p" => "161",
+	    "i" => "5",
+	    );
+
+getopts('h:p:i:', \%opts);
+
+my $host = $opts{'h'};
+my $port = $opts{'p'};
+my $interval = $opts{'i'};
+
+my $timeout = $interval * 8 / 10;
+$timeout = 1 if($timeout < 1); # snmp limit
+
+if($#ARGV == -1) {
+    print STDERR "usage:
+
+  $0 [-h host] [-p port] [-i interval] [oid1 [oid2 [...]]
+
+The oids can be either numerical or textual (requires snmptranslate
+tool from net-snmp-utils package).
+
+Also, if you want to give some specific names to the oids, you can
+prefix them by the name and an equal sign.
+
+The default interval is 5 seconds and the default host is localhost.
+
+The program dumps the samples to standard output.
+
+Examples (all three do the same, except the two last use the label
+          \"/tmp\" instead of the oid):
+
+  $0 -h somemachine 1.3.6.1.2.1.25.2.3.1.6.5
+  $0 -h somemachine /tmp=1.3.6.1.2.1.25.2.3.1.6.5
+  $0 -h somemachine /tmp=HOST-RESOURCES-MIB::hrStorageUsed.5
+
+Multiple oids at 1.73 second intervals:
+
+  $0 -h somemachine -i 1.73 1.3.6.1.2.1.25.2.3.1.6.5 1.3.6.1.2.1.1.3.0
+
+";
+    exit(1);
+}
+
+my ($session, $error) = Net::SNMP->session(
+					   -hostname => $host,
+					   -port => $port,
+					   -timeout => $timeout,
+					   -retries => 0,
+					   );
+
+die "problem initializing: $error" unless(defined($session));
+
+# set up translation to not translate certain values
+$session->translate(
+		    -timeticks => 0,
+		    );
+
+my $rt = time();
+
+$| = 1;
+
+my @oids;
+my @labels;
+foreach my $oid (@ARGV) {
+    my $label = $oid;
+    if($oid =~ /^([^=]+)=(.+)$/) {
+	$label = $1;
+	$oid = $2;
+    }
+    unless($oid =~ /^\.?(\d+\.)+\d+$/) {
+	# translate textual OID to numeric
+	my $newoid = `snmptranslate -On "$oid"`;
+	chomp $newoid;
+	unless(length($newoid)) {
+	    print STDERR "Unknown oid $oid\n";
+	    exit(1);
+	}
+	$oid = $newoid;
+    }
+    $oid =~ s/^\.//;
+    push @labels, $label;
+    push @oids, $oid;
+}
+
+print "# timestamp\t".join("\t",@labels)."\n";
+print "# SNMP dump for $host:$port with interval $interval seconds\n";
+
+my $problem;
+
+while(42) {
+    my $result = $session->get_request(
+#                          -contextengineid => $engine_id, # v3
+#                          -contextname     => $name,      # v3
+				       -varbindlist      => \@oids,
+				       );
+
+    if(defined($result)) {
+	print time();
+
+	foreach my $oid (@oids) {
+	    print "\t";
+	    if(defined($result->{$oid})) {
+		print $result->{$oid};
+	    } else {
+		print "nan";
+	    }
+	}
+
+	print "\n";
+
+	if($problem) {
+	    print STDERR "".time().": fetching works again\n";
+	    $problem = 0;
+	}
+
+    } else {
+	print STDERR "".time().": problems fetching values: ".$session->error."\n" unless($problem);
+	$problem = 1;
+    }
+
+    my $nrt = $rt + $interval;
+    my $sleeptime = $nrt - time();
+    sleep($sleeptime) if($sleeptime > 0);
+    $rt = $nrt;
+}

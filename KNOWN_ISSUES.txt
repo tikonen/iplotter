@@ -1,0 +1,9 @@
+1.0.2 b2
+
+Copy paste to Thunderbird doesn't work. See
+
+https://bugzilla.mozilla.org/show_bug.cgi?id=310948
+
+1.0 RC6
+
+- You need to have 'Full Keyboard Access' enabled to control the iPlotter through keyboard. OS X standard shortcut to enable full access is Ctrl-F7

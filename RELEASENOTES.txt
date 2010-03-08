@@ -1,0 +1,102 @@
+RELEASENOTES iPlotter (Build $Revision$)
+
+Minimum requirements
+
+  10.4 OS X Tiger
+  256 MB memory
+  2 MB disk space
+  CPU G4 or higher
+
+Change History
+
+1.0.3 b5  (30.11.2007)
+
+- Fixed plotting bug when same second had multiple entries
+- Fixed performance bug when very large files were opened
+- Associated with .iplot file type
+
+1.0.3 b2  (10.3.2006)
+
+- Updated to use plot 0.28 code (fix release)
+
+1.0.3 b1  (13.2.2006)
+
+- Updated to use plot 0.27 code (lots of plotting fixes)
+- Option to draw graph as step function
+
+1.0.2 b2  (xx.x.2006)
+
+- Save line enabled/disabled status
+
+1.0.2 b1  (25.4.2006)
+
+- copy-paste support
+
+1.0.1 RC2 (19.4.2006)
+
+- Reload shortcut to reload dataset files
+
+1.0 Final (x.4.2006)
+
+- Bookmark note text is aligned correctly in surrounding rectangle
+- Various enhancement for rendering printed document with large fonts
+- Legend and other rendering fixes
+- Keyboard zoom fixes
+- Fixed regression bug in y-axis limit computation
+- Updated to use plot 0.26 code
+
+1.0 RC6 (2.4.2006)
+
+- Overlaywindow is not anymore visible in Expose
+- New drawing mode with min/max drawing, alternative is averaged only
+  which is close to classic mode
+- Fixed keyboard navigation. Note that OS X full keyboard access 
+  feature must be enabled to take full use of keyboard
+- Shift modified for small movements with keyboard
+- Changed the export dialog to act as sheet for consistency with OS X
+  standard document operations.
+- Printed document has header/footer information
+- Printed document has 2700x1700 resolution
+- Updated to use plot 0.24 code
+- Included the credits in about dialog
+
+1.0 RC5 (27.3.2006)
+
+- Refixed memory leaks
+- Updated to use plot 0.22 code
+
+1.0 RC4 (26.3.2006)
+
+- Fixed various other memory leaks
+- Legend doesn't avoid nonexistent bookmark note boxes
+
+1.0 RC3 (24.3.2006)
+
+- Bookmark 'clear all' menu item works
+- Fixed memory leak on document open failure and print
+- Better error reporting in file load errors
+- Zoom history is reset on revert and drag n' drop
+- Click on plot view takes focus
+- Hopefully fixed strange crash on application quit
+- Legend doesn't avoid anymore non-visible bookmarks
+		   
+1.0 RC2 (20.3.2006)
+
+- Bookmark in PPC platform was always zero on saved project file
+- Bookmark note box editing didn't finish when user clicked outside the box
+- Zoom back navigation failed on very short time ranges 
+- Start label shows now full start date on full view
+
+1.0 RC1  (19.3.2006)
+
+Features:
+
+- Project files
+- Configurable sample count
+- Bookmark note boxes 
+- Printing
+- Add file to graph
+- Export (png,gif,jpeg)
+- Mouse and keyboard navigation
+
+

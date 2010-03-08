@@ -1,0 +1,136 @@
+/*
+ * Plot - plot time-based data on screen and to file with interactive controls
+ * Copyright (C) 2006  Jonas Berlin <xkr47@outerspace.dyndns.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ ****
+ * dataset - functions for managing data sets. Usually one instance
+ * represents all the data loaded from a single data file.
+ */
+
+#ifdef USE_FAM
+#include <fam.h>
+#endif
+
+#include "array_find.xh"
+#include "array.xh"
+#include "plot-types.xh"
+#include "dataset-types.xh"
+
+#template array(my_time_t, my_time_arr, ARRAY_DEFAULTTYPE_NONE)
+#template array_find(my_time_t, my_time_arr)
+#template array(my_data_t, my_data_arr, ARRAY_DEFAULTTYPE_CUSTOM)
+
+/*
+typedef void my_dataset_update_cb_t(my_dataset_t *dataset, void *user_data);
+
+// used by dataset internally to store listeners
+typedef struct {
+      my_dataset_update_cb_t *cb;
+      void *user_data;
+} my_dataset_update_listener_t;
+
+#template array(my_dataset_update_listener_t, my_dataset_update_listener_arr, ARRAY_DEFAULTTYPE_NONE)
+*/
+
+typedef struct {
+      my_data_arr_DECLARE(data);
+      my_data_t min, max;
+      my_data_t prev;
+      my_data_t diffmin;
+      char *name; // in UTF-8
+} my_dataset_item_t;
+
+#template array(my_dataset_item_t, my_dataset_item_arr, ARRAY_DEFAULTTYPE_CUSTOM)
+
+typedef enum { TIMETYPE_EPOCH, TIMETYPE_START } timetype_t;
+
+typedef enum { TIMESTAMP_BASE_SEC, TIMESTAMP_BASE_MILLIS, TIMESTAMP_BASE_DAYS } timestamp_base_t;
+
+typedef struct {
+      my_time_arr_DECLARE(time);
+      my_time_t ts, te;
+      my_time_t last_parsed_nonadjusted_timestamp; // used when multiple same timestamps are seen to see check if they still are the same
+
+      my_dataset_item_arr_DECLARE(item);
+
+      char *path_system; // malloced (in FILESYSTEM charset)
+      char *path_utf8; // malloced (in UTF-8 charset)
+      const char *name; // malloced (originally substring of path_utf8)
+      char *parse_errors; // delimited by '\n' (UTF-8)
+      size_t parse_errors_pos;
+      size_t parse_errors_size;
+
+      timetype_t timetype;
+
+      my_time_t last_modified; // file timestamp
+
+      my_time_t min_time_diff; // the smallest difference detected
+			       // between two timestamps in the file
+
+      // updated by user
+      my_time_t maxdiff; // maximum difference between two timestamps before it's a discontinued dataset
+
+      // stuff below is for update_dataset() .. don't use it, it's not a part of the api
+      long filepos; // how much of file has been read, used when tailing
+      my_time_t timeoff; // time offset to add to all entries
+      timestamp_base_t timestamp_base;
+      int refcount;
+
+#ifdef USE_FAM
+      // stuff used by FAM
+      FAMRequest fr;
+      boolean_t fam_monitored;
+#endif
+
+//      my_dataset_update_listener_arr_DECLARE(update_listener);
+
+} my_dataset_t;
+
+typedef void progress_cb_t(double fraction, void *user_data);
+
+// returns refed dataset
+WARN_UNUSED_RESULT NONNULL_ARG(1) my_dataset_t *read_dataset_int(const char *file, int maxlines, progress_cb_t *cb, void *user_data);
+
+// returns refed dataset
+WARN_UNUSED_RESULT NONNULL static inline my_dataset_t *scan_dataset(const char *file, int maxlines) {
+   return read_dataset_int(file, maxlines, 0, 0);
+}
+
+// returns refed dataset
+WARN_UNUSED_RESULT NONNULL_ARG(1) static inline my_dataset_t *read_dataset(const char *file, progress_cb_t *cb, void *user_data) {
+   return read_dataset_int(file, -1, cb, user_data);
+}
+
+WARN_UNUSED_RESULT NONNULL my_dataset_t *read_dataset_preview(const char *file, int maxsamples);
+
+// return 0 if there was a problem, 1 if nothing changed, 2 if new data was loaded
+int update_dataset(my_dataset_t *dataset);
+
+/*
+void add_dataset_listener(my_dataset_t *dataset, my_dataset_update_cb_t *cb, void *user_data);
+void remove_dataset_listener(my_dataset_t *dataset, my_dataset_update_cb_t *cb, void *user_data);
+*/
+
+NONNULL void ref_dataset(my_dataset_t *dataset);
+NONNULL int unref_dataset(my_dataset_t *dataset);
+
+/*
+ * Local variables:
+ * c-file-style: "ellemtel"
+ * c-file-offsets: ((c . c-lineup-dont-change) (statement-cont . (lambda (le) (if (save-excursion (goto-char (cdr le)) (looking-at "return")) (c-lineup-java-inher le) (c-lineup-math le)))))
+ * End:
+ */

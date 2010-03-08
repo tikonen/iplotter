@@ -1,0 +1,420 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */; };
+		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
+		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+		C404163B09E0105400C5D98C /* Credits.html in Resources */ = {isa = PBXBuildFile; fileRef = C404163A09E0105400C5D98C /* Credits.html */; };
+		C405500609BC8AA7007975E2 /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = C405500509BC8AA7007975E2 /* OverlayView.m */; };
+		C41DF8CC09B76A9B00032EB5 /* dataset.c in Sources */ = {isa = PBXBuildFile; fileRef = C41DF8CA09B76A9A00032EB5 /* dataset.c */; };
+		C41DF8DB09B76B0600032EB5 /* grid.c in Sources */ = {isa = PBXBuildFile; fileRef = C41DF8D009B76B0600032EB5 /* grid.c */; };
+		C41DF8DC09B76B0600032EB5 /* plot_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C41DF8D309B76B0600032EB5 /* plot_draw.c */; };
+		C41DF8DD09B76B0600032EB5 /* stringutil.c in Sources */ = {isa = PBXBuildFile; fileRef = C41DF8D509B76B0600032EB5 /* stringutil.c */; };
+		C41DF8DF09B76B0600032EB5 /* whls.c in Sources */ = {isa = PBXBuildFile; fileRef = C41DF8D909B76B0600032EB5 /* whls.c */; };
+		C41DFA8509B8BCAB00032EB5 /* paintapi-cocoa.m in Sources */ = {isa = PBXBuildFile; fileRef = C41DFA8409B8BCAB00032EB5 /* paintapi-cocoa.m */; };
+		C44645D209C608830052D848 /* PrintView.m in Sources */ = {isa = PBXBuildFile; fileRef = C44645D109C608830052D848 /* PrintView.m */; };
+		C447B09009C1F737000178B3 /* BackAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = C447B08F09C1F737000178B3 /* BackAdorn.tif */; };
+		C447B09209C1F74C000178B3 /* ForwardAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = C447B09109C1F74C000178B3 /* ForwardAdorn.tif */; };
+		C447B38F09C2AD8C000178B3 /* DownAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = C447B38E09C2AD8C000178B3 /* DownAdorn.tif */; };
+		C447B70109C478B5000178B3 /* iPlotter.icns in Resources */ = {isa = PBXBuildFile; fileRef = C447B70009C478B5000178B3 /* iPlotter.icns */; };
+		C4D1028A09DEE7B30025FAEB /* misc-util.c in Sources */ = {isa = PBXBuildFile; fileRef = C4D1028909DEE7B30025FAEB /* misc-util.c */; };
+		C4D5E2C609CA046700AC2D7E /* LoadIndicatorPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = C4D5E2C509CA046700AC2D7E /* LoadIndicatorPanel.nib */; };
+		C4D5E2C909CA050800AC2D7E /* LoadIndicatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D5E2C809CA050800AC2D7E /* LoadIndicatorController.m */; };
+		C4D5E58209CBF23B00AC2D7E /* PlotDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D5E58009CBF23B00AC2D7E /* PlotDocumentController.m */; };
+		C4D5E65909CC65F900AC2D7E /* DocumentIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = C4D5E65809CC65F900AC2D7E /* DocumentIcon.icns */; };
+		C4DA114309DFD4E1000A752C /* plot_draw_bookmarks.c in Sources */ = {isa = PBXBuildFile; fileRef = C4DA113F09DFD4E1000A752C /* plot_draw_bookmarks.c */; };
+		C4DA114409DFD4E1000A752C /* plot_draw_grids.c in Sources */ = {isa = PBXBuildFile; fileRef = C4DA114009DFD4E1000A752C /* plot_draw_grids.c */; };
+		C4DA114509DFD4E1000A752C /* plot_draw_legend.c in Sources */ = {isa = PBXBuildFile; fileRef = C4DA114109DFD4E1000A752C /* plot_draw_legend.c */; };
+		C4DA114609DFD4E1000A752C /* plot_draw_lines.c in Sources */ = {isa = PBXBuildFile; fileRef = C4DA114209DFD4E1000A752C /* plot_draw_lines.c */; };
+		C4F49AB609AE4DB000EF5B3B /* PlotWindow.nib in Resources */ = {isa = PBXBuildFile; fileRef = C4F49AB509AE4DB000EF5B3B /* PlotWindow.nib */; };
+		C4F49AB909AE4F3D00EF5B3B /* PlotDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F49AB809AE4F3D00EF5B3B /* PlotDocument.m */; };
+		C4F49ABE09AE4FA500EF5B3B /* PlotDrawWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F49ABD09AE4FA500EF5B3B /* PlotDrawWindowController.m */; };
+		C4F49AC209AE507400EF5B3B /* PlotDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = C4F49AC109AE507400EF5B3B /* PlotDrawView.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FBA07B3F13500E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A37F4B7FDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; name = English; path = English.lproj/MainMenu.nib; sourceTree = "<group>"; };
+		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32DBCF750370BD2300C91783 /* Plotter_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Plotter_Prefix.pch; sourceTree = "<group>"; };
+		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* iPlotter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iPlotter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C404163A09E0105400C5D98C /* Credits.html */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.html; path = Credits.html; sourceTree = "<group>"; };
+		C405500409BC8AA7007975E2 /* OverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		C405500509BC8AA7007975E2 /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
+		C41DF8CA09B76A9A00032EB5 /* dataset.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = dataset.c; path = "plot-src/src/dataset.c"; sourceTree = "<group>"; };
+		C41DF8D009B76B0600032EB5 /* grid.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = grid.c; path = "plot-src/src/grid.c"; sourceTree = "<group>"; };
+		C41DF8D309B76B0600032EB5 /* plot_draw.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = plot_draw.c; path = "plot-src/src/plot_draw.c"; sourceTree = "<group>"; };
+		C41DF8D509B76B0600032EB5 /* stringutil.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = stringutil.c; path = "plot-src/src/stringutil.c"; sourceTree = "<group>"; };
+		C41DF8D909B76B0600032EB5 /* whls.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = whls.c; path = "plot-src/src/whls.c"; sourceTree = "<group>"; };
+		C41DFA8309B8BCAB00032EB5 /* paintapi-cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "paintapi-cocoa.h"; sourceTree = "<group>"; };
+		C41DFA8409B8BCAB00032EB5 /* paintapi-cocoa.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = "paintapi-cocoa.m"; sourceTree = "<group>"; };
+		C43869C909D3303300206743 /* PlotError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlotError.h; sourceTree = "<group>"; };
+		C44645D009C608830052D848 /* PrintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrintView.h; sourceTree = "<group>"; };
+		C44645D109C608830052D848 /* PrintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrintView.m; sourceTree = "<group>"; };
+		C447B08F09C1F737000178B3 /* BackAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = BackAdorn.tif; path = images/BackAdorn.tif; sourceTree = "<group>"; };
+		C447B09109C1F74C000178B3 /* ForwardAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ForwardAdorn.tif; path = images/ForwardAdorn.tif; sourceTree = "<group>"; };
+		C447B38E09C2AD8C000178B3 /* DownAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = DownAdorn.tif; path = images/DownAdorn.tif; sourceTree = "<group>"; };
+		C447B70009C478B5000178B3 /* iPlotter.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iPlotter.icns; sourceTree = "<group>"; };
+		C4D1028909DEE7B30025FAEB /* misc-util.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = "misc-util.c"; path = "plot-src/src/misc-util.c"; sourceTree = "<group>"; };
+		C4D5E2C509CA046700AC2D7E /* LoadIndicatorPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = LoadIndicatorPanel.nib; sourceTree = "<group>"; };
+		C4D5E2C709CA050800AC2D7E /* LoadIndicatorController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoadIndicatorController.h; sourceTree = "<group>"; };
+		C4D5E2C809CA050800AC2D7E /* LoadIndicatorController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = LoadIndicatorController.m; sourceTree = "<group>"; };
+		C4D5E58009CBF23B00AC2D7E /* PlotDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PlotDocumentController.m; sourceTree = "<group>"; };
+		C4D5E58109CBF23B00AC2D7E /* PlotDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlotDocumentController.h; sourceTree = "<group>"; };
+		C4D5E65809CC65F900AC2D7E /* DocumentIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = DocumentIcon.icns; sourceTree = "<group>"; };
+		C4DA113F09DFD4E1000A752C /* plot_draw_bookmarks.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = plot_draw_bookmarks.c; path = "plot-src/src/plot_draw_bookmarks.c"; sourceTree = "<group>"; };
+		C4DA114009DFD4E1000A752C /* plot_draw_grids.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = plot_draw_grids.c; path = "plot-src/src/plot_draw_grids.c"; sourceTree = "<group>"; };
+		C4DA114109DFD4E1000A752C /* plot_draw_legend.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = plot_draw_legend.c; path = "plot-src/src/plot_draw_legend.c"; sourceTree = "<group>"; };
+		C4DA114209DFD4E1000A752C /* plot_draw_lines.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = plot_draw_lines.c; path = "plot-src/src/plot_draw_lines.c"; sourceTree = "<group>"; };
+		C4F49AB509AE4DB000EF5B3B /* PlotWindow.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = PlotWindow.nib; sourceTree = "<group>"; };
+		C4F49AB709AE4F3D00EF5B3B /* PlotDocument.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlotDocument.h; sourceTree = "<group>"; };
+		C4F49AB809AE4F3D00EF5B3B /* PlotDocument.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PlotDocument.m; sourceTree = "<group>"; };
+		C4F49ABC09AE4FA500EF5B3B /* PlotDrawWindowController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlotDrawWindowController.h; sourceTree = "<group>"; };
+		C4F49ABD09AE4FA500EF5B3B /* PlotDrawWindowController.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PlotDrawWindowController.m; sourceTree = "<group>"; };
+		C4F49AC009AE507400EF5B3B /* PlotDrawView.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = PlotDrawView.h; sourceTree = "<group>"; };
+		C4F49AC109AE507400EF5B3B /* PlotDrawView.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = PlotDrawView.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D15AC330486D014006FF6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB0FE9D524F11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D15AC370486D014006FF6A4 /* iPlotter.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A37F4AAFDCFA73011CA2CEA /* Plotter */ = {
+			isa = PBXGroup;
+			children = (
+				C404163A09E0105400C5D98C /* Credits.html */,
+				C447B38D09C2AD76000178B3 /* Images */,
+				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
+				19C28FB0FE9D524F11CA2CBB /* Products */,
+			);
+			comments = "Stable 1.0.X branch";
+			name = Plotter;
+			sourceTree = "<group>";
+		};
+		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C4F49AB809AE4F3D00EF5B3B /* PlotDocument.m */,
+				C4F49AB709AE4F3D00EF5B3B /* PlotDocument.h */,
+				C4F49ABD09AE4FA500EF5B3B /* PlotDrawWindowController.m */,
+				C4F49AC109AE507400EF5B3B /* PlotDrawView.m */,
+				C4F49AC009AE507400EF5B3B /* PlotDrawView.h */,
+				C4F49ABC09AE4FA500EF5B3B /* PlotDrawWindowController.h */,
+				C405500409BC8AA7007975E2 /* OverlayView.h */,
+				C405500509BC8AA7007975E2 /* OverlayView.m */,
+				C44645D009C608830052D848 /* PrintView.h */,
+				C44645D109C608830052D848 /* PrintView.m */,
+				C4D5E2C709CA050800AC2D7E /* LoadIndicatorController.h */,
+				C4D5E2C809CA050800AC2D7E /* LoadIndicatorController.m */,
+				C4D5E58009CBF23B00AC2D7E /* PlotDocumentController.m */,
+				C4D5E58109CBF23B00AC2D7E /* PlotDocumentController.h */,
+				C43869C909D3303300206743 /* PlotError.h */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+				C41DFA8409B8BCAB00032EB5 /* paintapi-cocoa.m */,
+				32DBCF750370BD2300C91783 /* Plotter_Prefix.pch */,
+				C41DFA8309B8BCAB00032EB5 /* paintapi-cocoa.h */,
+				C4DA113F09DFD4E1000A752C /* plot_draw_bookmarks.c */,
+				C4DA114009DFD4E1000A752C /* plot_draw_grids.c */,
+				C4DA114109DFD4E1000A752C /* plot_draw_legend.c */,
+				C4DA114209DFD4E1000A752C /* plot_draw_lines.c */,
+				C41DF8D309B76B0600032EB5 /* plot_draw.c */,
+				C4D1028909DEE7B30025FAEB /* misc-util.c */,
+				C41DF8CA09B76A9A00032EB5 /* dataset.c */,
+				C41DF8D009B76B0600032EB5 /* grid.c */,
+				C41DF8D509B76B0600032EB5 /* stringutil.c */,
+				C41DF8D909B76B0600032EB5 /* whls.c */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */,
+				8D15AC360486D014006FF6A4 /* Info.plist */,
+				C4F49AB509AE4DB000EF5B3B /* PlotWindow.nib */,
+				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				C4D5E2C509CA046700AC2D7E /* LoadIndicatorPanel.nib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C447B38D09C2AD76000178B3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				C4D5E65809CC65F900AC2D7E /* DocumentIcon.icns */,
+				C447B70009C478B5000178B3 /* iPlotter.icns */,
+				C447B38E09C2AD8C000178B3 /* DownAdorn.tif */,
+				C447B09109C1F74C000178B3 /* ForwardAdorn.tif */,
+				C447B08F09C1F737000178B3 /* BackAdorn.tif */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D15AC270486D014006FF6A4 /* iPlotter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "iPlotter" */;
+			buildPhases = (
+				8D15AC2B0486D014006FF6A4 /* Resources */,
+				8D15AC300486D014006FF6A4 /* Sources */,
+				8D15AC330486D014006FF6A4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = iPlotter;
+			productInstallPath = "$(HOME)/Applications";
+			productName = Plotter;
+			productReference = 8D15AC370486D014006FF6A4 /* iPlotter.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Plotter" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* Plotter */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D15AC270486D014006FF6A4 /* iPlotter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D15AC2B0486D014006FF6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC2D0486D014006FF6A4 /* MainMenu.nib in Resources */,
+				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
+				C4F49AB609AE4DB000EF5B3B /* PlotWindow.nib in Resources */,
+				C447B09009C1F737000178B3 /* BackAdorn.tif in Resources */,
+				C447B09209C1F74C000178B3 /* ForwardAdorn.tif in Resources */,
+				C447B38F09C2AD8C000178B3 /* DownAdorn.tif in Resources */,
+				C447B70109C478B5000178B3 /* iPlotter.icns in Resources */,
+				C4D5E2C609CA046700AC2D7E /* LoadIndicatorPanel.nib in Resources */,
+				C4D5E65909CC65F900AC2D7E /* DocumentIcon.icns in Resources */,
+				C404163B09E0105400C5D98C /* Credits.html in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D15AC300486D014006FF6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				C4F49AB909AE4F3D00EF5B3B /* PlotDocument.m in Sources */,
+				C4F49ABE09AE4FA500EF5B3B /* PlotDrawWindowController.m in Sources */,
+				C4F49AC209AE507400EF5B3B /* PlotDrawView.m in Sources */,
+				C41DF8CC09B76A9B00032EB5 /* dataset.c in Sources */,
+				C41DF8DB09B76B0600032EB5 /* grid.c in Sources */,
+				C41DF8DC09B76B0600032EB5 /* plot_draw.c in Sources */,
+				C41DF8DD09B76B0600032EB5 /* stringutil.c in Sources */,
+				C41DF8DF09B76B0600032EB5 /* whls.c in Sources */,
+				C41DFA8509B8BCAB00032EB5 /* paintapi-cocoa.m in Sources */,
+				C405500609BC8AA7007975E2 /* OverlayView.m in Sources */,
+				C44645D209C608830052D848 /* PrintView.m in Sources */,
+				C4D5E2C909CA050800AC2D7E /* LoadIndicatorController.m in Sources */,
+				C4D5E58209CBF23B00AC2D7E /* PlotDocumentController.m in Sources */,
+				C4D1028A09DEE7B30025FAEB /* misc-util.c in Sources */,
+				C4DA114309DFD4E1000A752C /* plot_draw_bookmarks.c in Sources */,
+				C4DA114409DFD4E1000A752C /* plot_draw_grids.c in Sources */,
+				C4DA114509DFD4E1000A752C /* plot_draw_legend.c in Sources */,
+				C4DA114609DFD4E1000A752C /* plot_draw_lines.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1660FE840EACC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		2A37F4B6FDCFA73011CA2CEA /* MainMenu.nib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4B7FDCFA73011CA2CEA /* English */,
+			);
+			name = MainMenu.nib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C05733C808A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					i386,
+					ppc,
+				);
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G4;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = iPlotter;
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		C05733C908A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = iPlotter;
+				STRIP_INSTALLED_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		C05733CC08A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = i386;
+				EXECUTABLE_PREFIX = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = "";
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		C05733CD08A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				EXECUTABLE_PREFIX = "";
+				GCC_FAST_MATH = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_STRICT_ALIASING = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = "";
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "iPlotter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733C808A9546B00998B17 /* Debug */,
+				C05733C908A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "Plotter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733CC08A9546B00998B17 /* Debug */,
+				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+}

@@ -1,0 +1,33 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                addBookmark = id; 
+                addFileToDoc = id; 
+                clearBookmarks = id; 
+                exportDocument = id; 
+                reloadDocument = id; 
+                showAll = id; 
+                toggleBookmarks = id; 
+                toggleInvertAction = id; 
+                toggleLegendPosition = id; 
+            }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {showToolUtilityAction = id; }; 
+            CLASS = PlotAppDelegate; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            ACTIONS = {newDocument = id; }; 
+            CLASS = PlotDocumentController; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSDocumentController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

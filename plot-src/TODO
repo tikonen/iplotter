@@ -1,0 +1,169 @@
++--------------------+
+| Legend:            |
+|  * means fixed     |
+|  - means not fixed |
++--------------------+
+
+* legend
+  * click on data item -> toggle on/off
+  - double-click -> edit ?
+
+* nollaviiva tummempana -> punaisena
+
+* sarakkeen nimet
+ - erikoismerkki sarakkeennimen perässä olis flagi
+   = piirrä impulse graph
+
+- zoom
+ - should show both source & destination boxes and lines connecting box corners
+ - arrows in both end of lines should show zoom direction
+ - possibly animate zoom, following the lines
+
+* (plot2:18891): GLib-GObject-WARNING **: gsignal.c:1709: signal `change-value' is invalid for instance `0x89603a8'
+ => disable the scroller
+
+- average of 30 minutes (for example) to detect trends - could we maybe use cumulative value and just calc the diff?
+  - <Mulleteer> tuumin sellaista, että plottien summaaminen ja keskiarvoistaminen olisi aika tärkeä ominaisuus
+  - <Mulleteer> x[n] = (x[n-2] + x[n-1] + x[n])/3
+  - <Mulleteer> ylipäästösuodin voisi olla kanssa mukava, näkisi vain poikkeamat
+
+* collect errors during data load into string, not to stdout
+
+* draw to off-screen buffer
+
+* BUG: minpermaj = 0 seems to be due to bug in __attrubute__ ((const)) implementation in older compilers - using ((pure)) instead
+
+- autoconf to check which gcc warning flags are supported
+ * used "simple" makefile target instead
+
+* cursor change when ctrl etc used on drawingarea
+
+* tail using separate process or FAM
+
+* (gtk)labelit jotka ilmaisee aikavälin ei aina päivity - ilmeisesti ei myöskään aina se entry siellä alaoikeassa nurkassa.. - pitäis olla korjattuna
+
+* the Show all button (and menu item) should be disabled when fully zoomed out
+
+- export options:
+  - show legend
+  - preview
+
+(IN MANTIS partially)
+- bookmarkit käyttöön - pystyviiva ja pallero jossa numero ja tooltip-tyyliin saa selityksen, exportissa vois olla lista alalaidassa
+    * piirto (palleron sijasta tuli kolmio ja numero on vieressä jos sitäkään)
+    - export-piirto
+    - lataus & mergaus nykyiseen plot_draw:hon
+    - tallennus jokaiseen aukinaiseen fileeseen
+    - bookmark categories: "bookmark (category) text" - category not included in label
+      - category can be used to select color
+
+- HMMM kun actual_samples_per_pixel > x (x >= 1) piirrä normaaliviivojen sijasta min ja max:n väliin viivat (min1->min2 min1->max2 max1->min1 max1->max2) tai (min1->max1, avg1->avg2) tai jotain
+
+- draw in background thread maybe?
+
+* try optimizing parse_double_num - mikko did some testing with oprofile
+
+- try optimizing parse_timestamp_num to parse floating numbers into fixed integers directly
+
+* while(gtk_events_pending()) -> system_check_events()
+
+* at least some kind of keyboard graph navigation (arrows and some modifiers used for move / scale)
+
+* use TRAC + subversion (used mantis + cvs instead :)
+
+* support tail mode - disables top 3 x scrollbars and locks the center pos to the right - also moving & zooming with mouse shall override x = max x to zoom with center along right border
+  * fix zoom area to lock to right border
+  - check how history is handled
+  - generalize the tailing support in plot2.xc to not be fam-specific
+  - support reverting file in case it was truncated
+  - options dialog:
+    - always "show all" y axis
+    - always "show all visible" y axis
+    - always "show all" x axis
+
+* marker bugs (when moving mouse without pressed buttons in plot area)
+  * partial reveal of window leaves partial markers
+  * when new file loaded, markers go bad if cursor was in window when loading finished
+  * sometimes when zooming fast, a duplicate of the markers is left
+
+- zoompoint bug - if y axis range increases, the zoompoint is moved even if display stays the same
+  - to reproduce: tail a file whose value is increasing all the time
+
+- after clicking the history back/forward buttons, the old (and now bogus) markers still remain until you dehoover & hoover the button again
+
+* preview with minigraph - load 100-200 samples from file with even intervals
+
+* move update_minmax() and plot_clone to plot_draw.xc
+  * actually extracted only parts that were named plot_draw_calc_x_minmax() and plot_draw_calc_y_minmax().
+
+* nollaviivan piirto exportissa bugasi
+
+- LOW option for choosing resizing behaviour between a) keeping the same [xy]off + [xy]length b) keep graph pixel size same when zooming, "zoom" around zoompoint
+
+- investigate if strikethrough and maybe also underline position fetching from layout and/or font through paintapi is possible - could be used to align legend color boxes to the center of the text
+
+* Menu -> Options -> Show hidden lines in legend
+  - 15:43 <Pasi> Toi legend voi tulla vaikeakäyttäiseksi jos dataa on paljon
+
+* multiview - support for multiple graphs on top of each other, sharing x axis
+  - zoom history in init, free & clone
+  - if view[0] is released, check what happens to references to view[0]
+  * add plot_view_need_redraw() and use it where it's enough
+  * *_markers() should be view-specific and maybe one global hide_all_markers() .. or?
+  * time marker should show up in all views
+  * update_minmax view-specific
+
+- multiwindow
+  - view defaults copied in clone?
+  - dataset callback from update_dataset() when an update happened
+
+- try to group uses of contexts when calling draw_* functions to avoid switching contexts often for paintapi platforms where it's expensive
+  * labels separate, but minor & major lines still drawn randomly
+
+- inverse code should be in plot_draw, not in paintapi (?)
+
+* convert filenames to utf-8 using nl_langinfo(CODESET) + iconv
+  MT: I think gtk automatically uses the LC_CTYPE as filename encoding
+  * added system-specific filename_to_utf8() function which uses glib
+    functions in gtk implementation
+
+- invent a name! plotteri, splot, dplot, plotter, ....?
+
+- draw some hi-res icon
+
+* gettext maybe ? intltool-extract --type "gettext/glade" plot.glade ; xgettext -a -c -o plot.po plot.glade.h
+
+* sample densityä säädettäessä kaakkoon niin autoredraw lakkas toimimasta ja lopulta segfaulttasi - apply piirsi mutta resize ei
+
+* test.txt has bad x axis values
+
+* maybe draw lines & numbers on top of graphs
+
+* gui toggle for disabling extra lines following mouse cursor
+
+- option to store meta-data at the end of the sample file -> the meta-data is always available
+
+* if mouse is moved while it's redrawing, extra dotted lines appear in plot
+
+- add to zoom history when user lets go of scrollbar
+
+- add to zoom history when user stops scrolling with keyboard for 1.5 secs
+  isn't this done already?
+
+* check paintapi_direct usage and possibly add "_restore_after_draw()" functions
+
+- check gdk_*() usage - verify if paintapi should be used instead
+
+* fix plot problems (sample-bad*.txt) - see README.PLOT_REWRITE
+
+- x axis legend texts jump up & down (swap places) when panning along x-axis (sample_bad1b.txt)
+
+- major & minor grid min_per_maj broken (use sample_bad1b.txt)
+
+* step function implemented but gui doesnt support it - maybe in prefs view?
+
++--------------------+
+| Legend:            |
+|  * means fixed     |
+|  - means not fixed |
++--------------------+

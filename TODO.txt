@@ -1,0 +1,59 @@
+
+TODO: FEATURES
+- Change the scale of y-axis
+- Options to generate new graph from series (e.g. sum, average, integral, etc..)
+- Bookmark note boxes 
+  o Should support multiple lines of text 
+  o Must not be created before or after maximum data range
+- CSV file format support (read-only)
+- Write legend settings in project
+
+
+TODO: UI ENHANCEMENTS
+- Bookmark poles should be drawn under note boxes
+- Toggle button for graph panel should change image for up/down arrows
+- Change mouse cursor to 'hand', when command is pressed inside the plot view
+
+TODO: OPTIMIZATIONS
+- Skip grid drawing on live window resize
+- Optimise the shared current context usage, now the color and the
+  dash settings are set for every line draw operation
+
+BUGS:
+- Sometimes the drawer toggle button goes out of sync
+
+DONE
+- Project files
+- Legend placement checks bookmark note rectangles even when they are
+  not visible
+- Loading progress bar
+- Sample count should be configurable
+- Bookmark note boxes 
+  o When bookmark is dragged up, it should not disappear so easily
+  o Should be drawn on left side of line on right side
+  o Should be drawn up or down from previous note on overlap
+  o Should be editable  
+  o Clear all bookmarks menu item
+  o Should be saved / loaded 
+  o editing should end, when plot view is clicked (or another note
+    double-clicked)
+- Update menu states correctly on key window change
+- Print
+- Add last known text box bounds in the bookmark array for hit testing
+- Add file to graph
+- Export (png,gif,jpeg)
+- Remove anti-alias for rectangles, both outlined and filled
+- In Quartz the pixel center is 0.5, 0.5, not 0,0 as in traditional API. Fix the paintapi to compensate this correctly.
+- Change mouse cursor to cross on select
+- Change mouse cursor to hand on move
+- Move with command key and mouse drag
+- Move with arrow keys
+- Zoom with arrow keys and command key
+- Clipping for the line draw and text paint
+- Scrollbars
+- Add antilias for text and the graph line
+
+Q: How to prevent that cascade misaligns the overlay window?
+A: Solution is to add overlay window as child window when it's needed and 
+   remove afterwards. The frame must be set on add.
+

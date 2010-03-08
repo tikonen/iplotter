@@ -1,0 +1,49 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {"" = id; }; 
+            CLASS = FirstResponder; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = NSDatePicker; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {CLASS = NSSegmentedControl; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {CLASS = PlotDocument; LANGUAGE = ObjC; SUPERCLASS = NSDocument; }, 
+        {
+            CLASS = PlotDrawView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {controller = PlotDrawWindowController; }; 
+            SUPERCLASS = NSView; 
+        }, 
+        {
+            ACTIONS = {
+                addFileToDoc = id; 
+                closeAddBookmarkPanel = id; 
+                okAddBookmarkPanel = id; 
+                segmentClicked = id; 
+                toggleLiteral = id; 
+                toggleStep = id; 
+            }; 
+            CLASS = PlotDrawWindowController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                addBookmarkPanel = NSPanel; 
+                bookmarkDate = NSDatePicker; 
+                bookmarkNoteEdit = NSTextField; 
+                endDateField = NSTextField; 
+                graphAuxView = NSView; 
+                plotTableView = NSTableView; 
+                plotView = NSView; 
+                rangeField = NSTextField; 
+                resolutionSelection = NSMatrix; 
+                samplesppEdit = NSTextField; 
+                samplesppSlider = NSSlider; 
+                segments = NSSegmentedControl; 
+                startDateField = NSTextField; 
+                toggleButton = NSButton; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

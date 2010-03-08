@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<!ELEMENT project (datafile+,bookmark*,spp)>
+<!ELEMENT datafile (path, name?, line*)>
+<!ELEMENT path (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT line (column,name)>
+<!ELEMENT column (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT bookmark (timestamp, note?)>
+<!ELEMENT timestamp (#PCDATA)>
+<!ELEMENT node (#PCDATA)>
+<!ELEMENT spp (#PCDATA)>
