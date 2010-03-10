@@ -33,6 +33,7 @@ typedef struct {
 
 WARN_UNUSED_RESULT NONNULL CONST grid_t calc_gen_grid(double min, double max, int max_gridlines, int scalelength, int div, int lb, int *toff, int tofflen);
 WARN_UNUSED_RESULT CONST grid_t calc_value_grid(double min, double max, int max_gridlines, int scalelength);
+WARN_UNUSED_RESULT CONST grid_t calc_log_value_grid(double min, double max, int max_gridlines, int scalelength);
 WARN_UNUSED_RESULT CONST grid_t calc_time_grid(double min, double max, int max_gridlines, int scalelength);
 
 /*

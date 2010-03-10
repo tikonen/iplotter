@@ -32,6 +32,7 @@ typedef struct {
 } my_plot_rect_t;
 
 typedef enum { LINE_MODE_NORMAL } my_plot_line_mode_t;
+typedef enum { TYPE_LINE, TYPE_STEP } my_plot_line_type_t;
 
 #define MAX_SMOOTH 16
 
@@ -51,7 +52,7 @@ typedef struct {
       int enabled;
       my_plot_line_mode_t mode;
       int smooth_amount;
-      enum { TYPE_LINE, TYPE_STEP } linetype;
+      my_plot_line_type_t linetype;
 
       // plot_draw_legend sets
       my_plot_rect_t legend_rect;
@@ -176,6 +177,13 @@ typedef struct {
 
       } bookmarks;
 
+      struct {
+	    paintapi_rgb_t text_color;
+	    paintapi_gc_t *text_gc;
+
+	    paintapi_font_t *font;
+      } logo;
+
       // plot_draw sets
       double last_render_time;
       int value_axis_width;
@@ -235,6 +243,7 @@ void plot_draw_time_grid(my_plot_draw_t *plot);
 void plot_draw_lines(my_plot_draw_t *plot);
 void plot_draw_legend(my_plot_draw_t *plot);
 void plot_draw_bookmarks(my_plot_draw_t *plot);
+void plot_draw_logo(my_plot_draw_t *plot);
 
 void plot_draw_calc_x_minmax(my_plot_draw_t *plot, my_time_t *pmin, my_time_t *pmax, my_time_t *pdiffmin);
 int plot_draw_calc_y_minmax(my_plot_draw_t *plot, double *pmin, double *pmax, double *pdiffmin, boolean_t include_disabled);
@@ -251,18 +260,21 @@ void plot_draw_init_bookmarks(my_plot_draw_t *plot);
 void plot_draw_init_grids(my_plot_draw_t *plot);
 void plot_draw_init_legend(my_plot_draw_t *plot);
 void plot_draw_init_lines(my_plot_draw_t *plot);
+void plot_draw_init_logo(my_plot_draw_t *plot);
 
 void plot_draw_deinit(my_plot_draw_t *plot);
 void plot_draw_deinit_bookmarks(my_plot_draw_t *plot);
 void plot_draw_deinit_grids(my_plot_draw_t *plot);
 void plot_draw_deinit_legend(my_plot_draw_t *plot);
 void plot_draw_deinit_lines(my_plot_draw_t *plot);
+void plot_draw_deinit_logo(my_plot_draw_t *plot);
 
 void plot_draw_clone(my_plot_draw_t *n, my_plot_draw_t *o);
 void plot_draw_clone_bookmarks(my_plot_draw_t *n, my_plot_draw_t *o);
 void plot_draw_clone_grids(my_plot_draw_t *n, my_plot_draw_t *o);
 void plot_draw_clone_legend(my_plot_draw_t *n, my_plot_draw_t *o);
 void plot_draw_clone_lines(my_plot_draw_t *n, my_plot_draw_t *o);
+void plot_draw_clone_logo(my_plot_draw_t *n, my_plot_draw_t *o);
 
 void plot_draw_remove_all_data_files(my_plot_draw_t *plot);
 void plot_draw_remove_data_file(my_plot_draw_t *plot, int idx);
@@ -272,6 +284,7 @@ void plot_draw_setup_bookmark_gcs(my_plot_draw_t *plot);
 void plot_draw_setup_grid_gcs(my_plot_draw_t *plot);
 void plot_draw_setup_legend_gcs(my_plot_draw_t *plot);
 void plot_draw_setup_line_gcs(my_plot_draw_t *plot);
+void plot_draw_setup_logo_gcs(my_plot_draw_t *plot);
 
 void plot_draw_reset_gcs(my_plot_draw_t *plot);
 void plot_draw_reset_bookmark_gcs(my_plot_draw_t *plot);
@@ -279,6 +292,7 @@ void plot_draw_reset_grid_gcs(my_plot_draw_t *plot);
 void plot_draw_reset_legend_gcs(my_plot_draw_t *plot);
 void plot_draw_reset_line_gcs(my_plot_draw_t *plot);
 void plot_draw_reset_line_info_gcs(my_plot_draw_t *plot, my_plot_line_info_t *p);
+void plot_draw_reset_logo_gcs(my_plot_draw_t *plot);
 
 DEPRECATED static inline void plot_setup_gcs(my_plot_draw_t *plot) {
    plot_draw_setup_gcs(plot);
@@ -292,7 +306,7 @@ DEPRECATED static inline void plot_draw_reset_line_info_gc(my_plot_draw_t *plot,
    plot_draw_reset_line_info_gcs(plot, p);
 }
 
-#define gc_free_and_zero(x) do { plot->paintapi->gc_free(plot->paintapi, x); x = NULL; } while(0)
+#define gc_free_and_zero(x) do { if(plot->paintapi) { plot->paintapi->gc_free(plot->paintapi, x); } else if(x) { fprintf(stderr, "Non-null gc when paintapi is null\n"); } x = NULL; } while(0)
 
 /* do we want these ?
 void plot_draw_image2datacoord(my_plot_draw_t *plot, double image_x, double image_y);

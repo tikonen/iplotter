@@ -71,6 +71,8 @@ void plot_draw(my_plot_draw_t *plot) {
 
    plot_draw_grid_precalc(plot);
 
+   plot_draw_logo(plot);
+
    if(system_check_events()) return;
 
    plot_draw_lines(plot);
@@ -199,15 +201,6 @@ int plot_draw_calc_y_minmax(my_plot_draw_t *plot, double *pmin, double *pmax, do
       }
    }
 
-   if(vmax <= vmin) {
-      // set either to 0
-      if(vmax > 0) {
-	 vmin = 0;
-      } else {
-	 vmax = 0;
-      }
-   }
-
    if(pmin) *pmin = vmin;
    if(pmax) *pmax = vmax;
    if(pdiffmin) *pdiffmin = vdiffmin;
@@ -227,6 +220,7 @@ void plot_draw_init(my_plot_draw_t *plot) {
    plot_draw_init_grids(plot);
    plot_draw_init_legend(plot);
    plot_draw_init_lines(plot);
+   plot_draw_init_logo(plot);
 
    plot->samples_per_pixel = 50;
 }
@@ -238,6 +232,7 @@ void plot_draw_deinit(my_plot_draw_t *plot) {
    plot_draw_deinit_grids(plot);
    plot_draw_deinit_legend(plot);
    plot_draw_deinit_lines(plot);
+   plot_draw_deinit_logo(plot);
 
    if(plot->paintapi) {
       plot_draw_reset_gcs(plot);
@@ -252,10 +247,14 @@ void plot_draw_clone(my_plot_draw_t *n, my_plot_draw_t *o) {
    plot_draw_clone_grids(n, o);
    plot_draw_clone_legend(n, o);
    plot_draw_clone_lines(n, o);
+   plot_draw_clone_logo(n, o);
 
    n->show_disabled = o->show_disabled;
    n->inverse_colors = o->inverse_colors;
    n->samples_per_pixel = o->samples_per_pixel;
+   n->draw_min_max_lines = o->draw_min_max_lines;
+   n->draw_average_line = o->draw_average_line;
+   n->time_off = o->time_off;
 
    n->xstart = o->xstart;
    n->xend = o->xend;
@@ -294,9 +293,11 @@ void plot_draw_remove_data_file(my_plot_draw_t *plot, int idx) {
    plot_draw_free_line_info_set(plot, &plot->line_set[idx]);
    --plot->line_set_count;
    memmove(&plot->line_set[idx], &plot->line_set[idx+1], (plot->line_set_count - idx) * sizeof(my_plot_line_info_set_t));
+   memset(&plot->line_set[plot->line_set_count], 0, sizeof(my_plot_line_info_set_t)); // to spot bugs, clean the last slot
 }
 
 void plot_draw_setup_gcs(my_plot_draw_t *plot) {
+   plot_draw_setup_logo_gcs(plot);
    plot_draw_setup_line_gcs(plot);
    plot_draw_setup_grid_gcs(plot);
    plot_draw_setup_bookmark_gcs(plot);
@@ -304,6 +305,7 @@ void plot_draw_setup_gcs(my_plot_draw_t *plot) {
 }
 
 void plot_draw_reset_gcs(my_plot_draw_t *plot) {
+   plot_draw_reset_logo_gcs(plot);
    plot_draw_reset_line_gcs(plot);
    plot_draw_reset_grid_gcs(plot);
    plot_draw_reset_bookmark_gcs(plot);

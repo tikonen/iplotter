@@ -39,6 +39,9 @@ grid_t calc_gen_grid(double min, double max, int max_gridlines, int scalelength,
       pprintf("%d,", toff[i]);
    }
    pprintf("]\n");
+   if(lb != toff[tofflen-1]) {
+      fprintf(stderr, "WARNING: lb != toff[tofflen-1] (%d != %d)\n", lb, toff[tofflen-1]);
+   }
 
    if(min > max) {
       fprintf(stderr, "WARNING: min > max (%lf > %lf)\n", min, max);
@@ -103,6 +106,18 @@ grid_t calc_value_grid(double min, double max, int max_gridlines, int scalelengt
    return calc_gen_grid(min, max, max_gridlines, scalelength, 1, 10, toff, SZ(toff));
 }
 
+grid_t calc_log_value_grid(double min, double max, int max_gridlines, int scalelength) {
+   double log_10 = log(10);
+   min = log(min) / log_10;
+   max = log(max) / log_10;
+   int toff[] = { 2, 5, 10 };
+   grid_t x = calc_gen_grid(min, max, max_gridlines, scalelength, 1, 10, toff, SZ(toff));
+   x.dvmin = exp(x.dvmin * log_10);
+   x.dvmax = exp(x.dvmax * log_10);
+   return x;
+}
+
+// TODO since YEAR-MONTH or YEAR display doesn't work great, there is a workaround in plot_draw_grids.xc labeled "TODO remove when calc_time_grid fixed"
 grid_t calc_time_grid(double min, double max, int max_gridlines, int scalelength) {
    double t = (max - min) / max_gridlines;
 

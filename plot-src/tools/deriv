@@ -1,0 +1,57 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+$| = 1;
+
+my $diff = shift @ARGV;
+
+# last = last sample
+# prev = previous line
+
+my $lasttime = 0;
+my @lastval;
+
+my @prevval;
+
+my $curtime;
+
+while(<>) {
+
+    if (m!^\s*\#!) { print; next; }
+
+    my @curval = split(/\s+/);
+    $curtime = shift @curval;
+
+    if ($curtime >= $lasttime + $diff) {
+	if ($lasttime > 0) {
+	    my @diff;
+	    for(my $i=0; $i<=$#lastval; ++$i) {
+		$diff[$i] = $prevval[$i] - $lastval[$i];
+	    }
+	    print join("\t",$lasttime,@diff), "\n";
+	    for(my $i=$lasttime + $diff; $i<=$curtime - $diff; $i += $diff) {
+		print join("\t", $i, map { 0 } @diff), "\n";
+	    }
+	} else {
+	    @prevval = @curval;
+	}
+	$lasttime = $curtime - int($curtime % $diff);
+	@lastval = @prevval;
+    }
+
+    @prevval = @curval;
+}
+
+# last diffs are scaled up to match the shorter range
+
+my @diff;
+my $tdiff = $curtime - $lasttime;
+if($tdiff > 0) {
+    my $vmul = $diff / $tdiff;
+    for(my $i=0; $i<=$#lastval; ++$i) {
+	$diff[$i] = ($prevval[$i] - $lastval[$i]) * $vmul;
+    }
+    print join("\t",$lasttime,@diff), "\n";
+}

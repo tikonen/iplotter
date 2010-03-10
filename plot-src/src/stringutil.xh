@@ -96,9 +96,9 @@ static inline void *memmset_int(void *p, const void *d, size_t dsize, int count)
 #ifdef MOKKI_V2
 
 static inline void *memmset_4(void *p, const void *d, int count) {
-   const int *dd = (const int *)d;
-   int v1 = dd[0];
-   int *pd = (int *)p;
+   const int32_t *dd = (const int32_t *)d;
+   int32_t v1 = dd[0];
+   int32_t *pd = (int32_t *)p;
    do {
       *pd = v1;
       pd++;
@@ -107,9 +107,9 @@ static inline void *memmset_4(void *p, const void *d, int count) {
 }
 
 static inline void *memmset_8(void *p, const void *d, int count) {
-   const long *dd = (const long *)d;
-   long v1 = dd[0];
-   long *pd = (long *)p;
+   const int64_t *dd = (const int64_t *)d;
+   int64_t v1 = dd[0];
+   int64_t *pd = (int64_t *)p;
    do {
       *pd = v1;
       pd++;
@@ -145,6 +145,8 @@ CONST const char *strip_context(const char *msgid, const char *msgval);
 
 #ifdef ENABLE_NLS
 CONST const char *utf8_to_console(const char *str);
+#else
+#define utf8_to_console(x) (x)
 #endif
 
 /*

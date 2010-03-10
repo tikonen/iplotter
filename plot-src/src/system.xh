@@ -44,6 +44,17 @@ boolean_t system_check_events(void);
 // returns malloced utf-8 string, if system uses utf-8 natively, just strdup filename.
 char *filename_to_utf8(const char *filename);
 
+#ifdef __MINGW32__
+#define bzero(a,b) memset(a,'\0',b)
+#define exp10(x) pow(x,10.0)
+#endif
+
+#ifdef __CYGWIN__
+#define INFINITY	__builtin_inf()
+#define NAN           __builtin_nan("")
+#define exp10(x) pow(x,10)
+#endif
+
 /**************
 
   End of required system-specific functions list

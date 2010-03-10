@@ -50,22 +50,19 @@
 static void draw_mm_lines(const my_plot_draw_t *plot, my_plot_line_info_t *line) {
    if (plot->draw_min_max_lines) {
 #if 0
-      int x;
-      for(x=0; x<=plot->plot_xe; x += line->smooth_amount) {
+      for(int x=0; x<=plot->plot_xe; x += line->smooth_amount) {
 	 int xe = x + line->smooth_amount - 1;
 	 min_set(xe, plot->plot_xe);
 
 	 int min = INT_MAX;
 	 int max = INT_MIN;
-	 int xi;
-	 for(xi=x; xi<=xe; ++xi) {
+	 for(int xi=x; xi<=xe; ++xi) {
 	    min_set(min, line->tmp.minmax_values_min[xi]);
 	    max_set(max, line->tmp.minmax_values_max[xi]);
 	 }
 	 pprintf("mm %d, %d-%d  %d-%d\n", x, min, max, xo, xe);
 	 if(max > min) {
-	    int xi;
-	    for(xi=x; xi<=xe; ++xi) {
+	    for(int xi=x; xi<=xe; ++xi) {
 	       paintapi_point_t *minmax_point = NULL;
 	       minmax_point = &line->tmp.minmaxLines[(line->tmp.usedMinmaxLines++) * 2];
 	       minmax_point[0].x = minmax_point[1].x = xi;
@@ -75,8 +72,7 @@ static void draw_mm_lines(const my_plot_draw_t *plot, my_plot_line_info_t *line)
 	 }
       }
 #elif 1
-      int x;
-      for(x=0; x<=plot->plot_xe; ++x) {
+      for(int x=0; x<=plot->plot_xe; ++x) {
 	 int xo = x - (line->smooth_amount - 1) / 2;
 	 max_set(xo, 0);
 	 int xe = x + (line->smooth_amount) / 2;
@@ -84,8 +80,7 @@ static void draw_mm_lines(const my_plot_draw_t *plot, my_plot_line_info_t *line)
 
 	 int min = INT_MAX;
 	 int max = INT_MIN;
-	 int xi;
-	 for(xi=xo; xi<=xe; ++xi) {
+	 for(int xi=xo; xi<=xe; ++xi) {
 	    min_set(min, line->tmp.minmax_values_min[xi]);
 	    max_set(max, line->tmp.minmax_values_max[xi]);
 	 }
@@ -110,8 +105,7 @@ static void draw_avg_lines(const my_plot_draw_t *plot, my_plot_line_info_t *line
       if(line->tmp.usedAvgLines > 1) {
 	 line->tmp.avgLinesOffsets[line->tmp.usedAvgLinesOffsets] = line->tmp.usedAvgLines;
 	 int start = 0;
-	 int i;
-	 for(i=0; i<line->tmp.usedAvgLinesOffsets; ++i) {
+	 for(int i=0; i<line->tmp.usedAvgLinesOffsets; ++i) {
 	    plot->paintapi->draw_lines(plot->paintapi, line->line_gc, line->tmp.avgLines + start, line->tmp.avgLinesOffsets[i] - start);
 	    start = line->tmp.avgLinesOffsets[i];
 	 }
@@ -198,8 +192,7 @@ static void handle_one_line_in_line_set(const my_plot_draw_t *plot, my_plot_line
 
    pprintf("handle_one_line_in_line_set(start_x %d, end_x %d)\n", start_x, end_x);
 
-   int x;
-   for (x=-1; x<=plot->plot_xe+1; ++x) {
+   for (int x=-1; x<=plot->plot_xe+1; ++x) {
       int end_idx = time_index[x+1];
       boolean_t end_idx_was_negative = end_idx < 0;
       if(end_idx_was_negative) {
@@ -229,7 +222,7 @@ static void handle_one_line_in_line_set(const my_plot_draw_t *plot, my_plot_line
       if (span < 1) {
 	 if(prev_mode == MODE_MULTI) {
 	    data = line->tmp.data[start_idx-1];
-	    if(likely(!__isnan(data))) {
+	    if(likely(!isnan(data))) {
 	       pprintf("extra start point added\n");
 	       add_avg_pixel(line, x-1, calc_screen_y(plot, data));
 	    } else {
@@ -245,7 +238,7 @@ static void handle_one_line_in_line_set(const my_plot_draw_t *plot, my_plot_line
       } else if(span == 1) {
 	 if(prev_mode == MODE_0 && line->linetype == TYPE_STEP && start_idx > 0) {
 	    data = line->tmp.data[start_idx-1];
-	    if(likely(!__isnan(data))) {
+	    if(likely(!isnan(data))) {
 	       pprintf("step end point added 1\n");
 	       int px = x == plot->plot_xe+1 ? end_x : x;
 	       add_avg_pixel(line, px, calc_screen_y(plot, data));
@@ -259,7 +252,7 @@ static void handle_one_line_in_line_set(const my_plot_draw_t *plot, my_plot_line
 	 points = 1;
 	 data = line->tmp.data[start_idx];
 	 pprintf("One %d: %f\n", start_idx, data);
-	 if(unlikely(__isnan(data))) {
+	 if(unlikely(isnan(data))) {
 	    finish_avg_line(plot, line, plot->plot_xe);
 	    points = 0;
 	 } else {
@@ -268,7 +261,7 @@ static void handle_one_line_in_line_set(const my_plot_draw_t *plot, my_plot_line
       } else {
 	 if(prev_mode == MODE_0) {
 	    data = line->tmp.data[line->linetype == TYPE_STEP ? start_idx-1 : start_idx];
-	    if(likely(!__isnan(data))) {
+	    if(likely(!isnan(data))) {
 	       pprintf("extra end point added M\n");
 	       int px = x == plot->plot_xe+1 ? end_x : x;
 	       add_avg_pixel(line, px, calc_screen_y(plot, data));
@@ -283,13 +276,13 @@ static void handle_one_line_in_line_set(const my_plot_draw_t *plot, my_plot_line
 	 if (span <= spp) {
 	    // linear scan
 	    points = span;
-	    int time;
-	    for (time=start_idx; time<end_idx; ++time) {
+	    for (int time=start_idx; time<end_idx; ++time) {
 	       data = line->tmp.data[time];
 	       pprintf("Lin %d: %f\n", time, data);
-	       if(unlikely(__isnan(data))) {
+	       if(unlikely(isnan(data))) {
 		  points--;
 	       } else {
+		  // TODO it would be nice with weighted average here and also in the skip scan below
 		  avg += data;
 		  if (data < min) {
 		     min = data;
@@ -301,12 +294,11 @@ static void handle_one_line_in_line_set(const my_plot_draw_t *plot, my_plot_line
 	 } else {
 	    // skip scan
 	    points = spp;
-	    int t;
-	    for (t=0; t < spp; ++t) {
+	    for (int t=0; t < spp; ++t) {
 	       int time = t * (span-1) / (spp-1) + start_idx;
 	       data = line->tmp.data[time];
 	       pprintf("Skp %d: %f\n", time, data);
-	       if(unlikely(__isnan(data))) {
+	       if(unlikely(isnan(data))) {
 		  points--;
 	       } else {
 		  avg += data;
@@ -585,6 +577,8 @@ void plot_draw_clone_lines(my_plot_draw_t *n, my_plot_draw_t *o) {
 	 nsl->dataset_idx = osl->dataset_idx;
 	 nsl->enabled = osl->enabled;
 	 nsl->mode = osl->mode;
+	 nsl->smooth_amount = osl->smooth_amount;
+	 nsl->linetype = osl->linetype;
       }
    }
 }

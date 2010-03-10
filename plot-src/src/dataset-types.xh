@@ -26,7 +26,10 @@
 
 // base time unit, see TIME_MULTIPLIER above
 typedef int64_t my_time_t;
-typedef float my_data_t;
+typedef float my_data_t; // if changed to double, please change FLT_ in MY_DATA_T_INFO(SUF) macro to DBL_
+
+// this is used to dig out constants such as FLT_DIG and FLT_EPSILON
+#define MY_DATA_T_INFO(suffix) FLT_ ## suffix
 
 #define PRIdMYTIME PRId64
 

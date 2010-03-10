@@ -162,6 +162,42 @@
 
 * step function implemented but gui doesnt support it - maybe in prefs view?
 
+- enable user to affect plot_draw.time_off
+
+- implement autoexport_every (menuitem already added in plot-fastcommit/plot.glade)
+
+- commandline export font size is different than in GUI
+
+- [epa] view bookmarks
+  - animated panning between bookmarks with zoom out + zoom in between to better visualize where we are going
+
+- [epa] show zoom of current pixel in smaller overlay window (requires numbers for line values at current time to be shown somewhere)
+
+- [epa] view zoompoint, remove zoompoint scrollbars
+
+- aalib ^^
+
+- timezone adjust (use TZ by default)
+
+- tail only files that have enabled lines
+
+- option to have legend outside plot (to the left or right) i.e. shrink the width of the plot area.. otoh this requries clipping to be taken into use :P
+
+- the list of open files and datasets at the bottom could have an option to drop data files and perhaps also lines from memory
+
+- the open dialog could have options for selecting which lines to import, otoh this might slow down loading when all lines are selected
+
+- is the sample averaging process weighted by time or not ? if not, maybe there should be an option for it..
+   - non_weighted_average_demo.plot
+
+- nul/nil/zero/'\0' bytes in input cause reading to be aborted in the middle of the file, but tail "finds" more stuff later
+
+* if there are more labels than necessary during initial load, they are not picked up later if more data columns appear
+
+- there should be a vertical dashed line when adding bookmarks, just like when the cursor is inside the plot, while the horizontal dashed line should be disabled.
+
+- "autogen.sh" that does "ln -s Makefile.release Makefile" or "ln -s Makefile.devel Makefile" depending on args. The difference would be that the release makefile expects precompiled .c files and does not do any deps checking i.e. "compile once".
+
 +--------------------+
 | Legend:            |
 |  * means fixed     |

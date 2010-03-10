@@ -1,0 +1,109 @@
+#!/usr/bin/perl
+#
+# To install dependencies:
+#
+#  fedora:
+#    yum install perl-Proc-ProcessTable perl-Time-HiRes 
+#  gentoo:
+#    emerge -u dev-perl/Proc-ProcessTable perl-core/Time-HiRes
+
+use Getopt::Std;
+use Proc::ProcessTable;
+use Time::HiRes qw(sleep time);
+use strict;
+use warnings;
+
+##TODO## support multiple process matchers to save cpu cycles (compared to running multiple)
+
+my %opts = (
+	    "i" => "5",
+	    );
+
+getopts('i:rcat', \%opts);
+
+if($#ARGV <= 0) {
+    print STDERR "usage:
+
+  $0 [-i interval] [-r] [-c] [-a] process_string field1 [field2 [...]]
+
+ -i interval          in seconds (can contain decimals)
+ -r                   process_string is regexp instead of substring
+ -c                   compress output (don't print new lines if value(s) stay the same)
+ -a                   align time to a multiple of interval after first sample
+ -t                   test mode - checks which processes would match and exits
+";
+    exit(1);
+}
+
+my ($substr,@fields) = @ARGV;
+my $t = new Proc::ProcessTable();
+my %fieldsAvail = map { $_ => 1 } $t->fields;
+foreach my $f (@fields) {
+    unless(defined($fieldsAvail{$f})) {
+	print STDERR "Invalid field ", $f, "\nAvailable: ", join(",",$t->fields),"\n";
+	exit(1);
+    }
+}
+
+my $re = defined($opts{"r"}) ? qr!$substr! : qr!\Q$substr!;
+my $interval = $opts{'i'};
+my $div = $interval < 10 ? $interval/10 : 1;
+
+if(defined($opts{"t"})) {
+    my @ps;
+    foreach my $p (@{$t->table}) {
+	next if($p->pid == $$);
+	if($p->cmndline =~ $re) {
+	    push @ps, $p->pid;
+	}
+    }
+    if($#ps >= 0) {
+	system "ps u ".join(" ",@ps);
+    } else {
+	print "No match for ", (defined($opts{"r"}) ? "regexp \"" : "\""), $substr, "\"\n";
+    }
+    exit(0);
+}
+
+
+my $rt = time();
+
+$| = 1;
+
+my $first = defined($opts{"a"});
+my $compress = defined($opts{"c"});
+my @lastvals = map { "x" } @fields;
+
+
+print "# timestamp\t".join("\t",@fields)."\n";
+print "# Process dump for process '",$substr,"' with interval $interval seconds\n";
+print "#!line[*].type=step\n" if($compress);
+
+while(42) {
+    foreach my $p (@{$t->table}) {
+	next if($p->pid == $$);
+	if($p->cmndline =~ $re) {
+	    my @vals;
+	    my $changed = !$compress;
+	    my $i = 0;
+	    foreach my $f (@fields) {
+		my $v = $p->{$f};
+		push @vals, $v;
+		$changed |= $v ne $lastvals[$i++];
+	    }
+	    if($changed) {
+		@lastvals = @vals if($compress);
+		print $rt,"\t",join("\t",@vals),"\n";
+	    }
+	    last;
+	}
+    }
+    if($first) {
+	$rt = int($rt / $interval) * $interval;
+	$first = 0;
+    }
+    my $nrt = $rt + $interval;
+    my $sleeptime = $nrt - time();
+    sleep($sleeptime) if($sleeptime > 0);
+    $rt = $nrt;
+}

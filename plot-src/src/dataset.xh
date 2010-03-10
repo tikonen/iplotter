@@ -51,7 +51,15 @@ typedef struct {
       my_data_t min, max;
       my_data_t prev;
       my_data_t diffmin;
-      char *name; // in UTF-8
+
+      // defaultname = column name as present in file
+      char *defaultname; // in UTF-8, NULL if no name available
+
+      // updated by user
+      // name = column name to show in gui, can be edited by user
+      char *name; // in UTF-8, "item-123" if no name available
+      boolean_t name_locked; // set to true to not update this when calling update_dataset()
+      void *user_data;
 } my_dataset_item_t;
 
 #template array(my_dataset_item_t, my_dataset_item_arr, ARRAY_DEFAULTTYPE_CUSTOM)
@@ -69,7 +77,8 @@ typedef struct {
 
       char *path_system; // malloced (in FILESYSTEM charset)
       char *path_utf8; // malloced (in UTF-8 charset)
-      const char *name; // malloced (originally substring of path_utf8)
+      const char *defaultname; // points to path_utf8 substring
+      char *name; // malloced (originally strdup), updated by user
       char *parse_errors; // delimited by '\n' (UTF-8)
       size_t parse_errors_pos;
       size_t parse_errors_size;
@@ -83,12 +92,15 @@ typedef struct {
 
       // updated by user
       my_time_t maxdiff; // maximum difference between two timestamps before it's a discontinued dataset
+      void *user_data;
 
       // stuff below is for update_dataset() .. don't use it, it's not a part of the api
       long filepos; // how much of file has been read, used when tailing
       my_time_t timeoff; // time offset to add to all entries
       timestamp_base_t timestamp_base;
       int refcount;
+      char **labels;
+      int numlabels;
 
 #ifdef USE_FAM
       // stuff used by FAM

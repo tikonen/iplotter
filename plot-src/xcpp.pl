@@ -1,4 +1,4 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 #
 # Plot - plot time-based data on screen and to file with interactive controls
 # Copyright (C) 2006  Jonas Berlin <xkr47@outerspace.dyndns.org>
@@ -22,6 +22,7 @@
 # also allow #defines to be used inside
 
 use strict;
+use warnings;
 
 my %templates;
 

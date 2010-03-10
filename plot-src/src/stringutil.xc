@@ -29,7 +29,7 @@
 #endif
 
 #include "stringutil.xh"
-
+#include "system.xh"
 
 char *strnzdup(const char *p, size_t maxlen) {
    size_t len = strlen(p);
@@ -107,7 +107,7 @@ TYPE parse_TYPE_num(const char **p) {
 ./parsetest 100000000 123.456                2.089 total
   */
    TYPE data;
-   long long d = 0;
+   int64_t d = 0;
    const char *q = *p;
    char ch = *q++;
    int neg = 1;
@@ -155,7 +155,7 @@ TYPE parse_TYPE_num(const char **p) {
    return data;
 #elif 1 // mokki v1
    TYPE data;
-   long d = 0;
+   int64_t d = 0;
    const char *q = *p;
    int neg = 1;
    if(*q == '-') {
@@ -168,7 +168,7 @@ TYPE parse_TYPE_num(const char **p) {
    }
    if(*q == '.' || *q == ',') {
       int decimals = 0;
-      long frac = 0;
+      int64_t frac = 0;
       decimals = 0;
       for(++q; NUMBER(*q); ++q) {
 	 frac *= 10;

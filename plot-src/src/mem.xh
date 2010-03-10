@@ -25,25 +25,25 @@
 
 #if defined(__APPLE__)
 
-static inline void *malloc_c(size_t size) {
+static inline void *malloc_c(size_t size) MALLOC {
    void *p = malloc(size);
    if(!p) {
-      printf("OOME\n");
+      fprintf(stderr, "OOME\n");
       exit(1);
    }
    return p;
 }
 
-static inline void *zmalloc_c(size_t size) {
+static inline void *zmalloc_c(size_t size) MALLOC {
    void *p = malloc_c(size);
    bzero(p, size);
    return p;
 }
 
-static inline void *realloc_c(void *old, size_t size) {
+static inline void *realloc_c(void *old, size_t size) MALLOC {
    void *p = realloc(old, size);
    if(!p) {
-      printf("OOME\n");
+      fprintf(stderr, "OOME\n");
       exit(1);
    }
    return p;

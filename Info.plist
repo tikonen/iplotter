@@ -84,7 +84,7 @@
 	<key>CFBundleSignature</key>
 	<string>plot</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.3 b2 build5</string>
+	<string>1.0.4 rc1</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

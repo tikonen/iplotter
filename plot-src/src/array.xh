@@ -28,6 +28,7 @@
 #include "stringutil.xh"
 #include "misc-util.xh"
 #include "plot-types.xh"
+#include "system.xh"
 
 #define ARRAY_DEFAULTTYPE_NONE 159000
 #define ARRAY_DEFAULTTYPE_ZERO 159001

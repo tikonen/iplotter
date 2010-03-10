@@ -59,6 +59,11 @@ struct paintapi_s {
       // free the resourced allocated by api, if any
       void (*api_free)(paintapi_t *api_instance);
 
+      /**
+       * Get the size of the surface being drawn on.
+       */
+      void (*get_size)(paintapi_t *api_instance, int *w, int *h);
+
       // returns GC instance
       paintapi_gc_t *(*gc_new)(paintapi_t *api_instance);
       void (*gc_free)(paintapi_t *api_instance, paintapi_gc_t *gc);
@@ -95,6 +100,8 @@ struct paintapi_s {
       /**
        * Draw a discontinuous set of lines, x1,y1 to x2,y2, x3,y3 to
        * x4,y4 etc.
+       *
+       * segment_list_len = number_of_points_in_segment_list / 2;
        */
       void (*draw_segments)(paintapi_t *api_instance, paintapi_gc_t *gc, paintapi_point_t *segment_list, int segment_list_len);
 

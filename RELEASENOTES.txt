@@ -9,6 +9,10 @@ Minimum requirements
 
 Change History
 
+1.0.4 (xx.xx.2010)
+
+- Updated to use plot-0.29 source (bugfixes)
+
 1.0.3 b5  (30.11.2007)
 
 - Fixed plotting bug when same second had multiple entries

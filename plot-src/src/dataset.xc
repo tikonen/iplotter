@@ -34,6 +34,12 @@
 #include "system.xh"
 #include "misc-util.xh"
 
+struct load_info {
+      char **labels;
+      int numlabels;
+      int alloclabels;
+};
+
 static void free_dataset(my_dataset_t *dataset);
 
 static my_time_t parse_timestamp(const char **p) {
@@ -82,12 +88,50 @@ static void print_parse_errors(my_dataset_t *dataset) {
    }
 }
 
+static void parse_headers(char *x, struct load_info *info) {
+   //printf("info = %p\n", info);
+   for (int i=0; i<info->numlabels; ++i) {
+      //printf("Freeing %d/%d : %p\n", i, info->numlabels, info->labels[i]);
+      free(info->labels[i]);
+   }
+   info->numlabels = 0;
+   chomp(x);
+   // labels found -> detect separator - check for tabs, multiple spaces or default to single space
+   const char *sep;
+   if(strchr(x, '\t')) {
+      sep = "\t";
+   } else if(strstr(x, "  ")) {
+      sep = "  ";
+   } else {
+      sep = " ";
+   }
+   
+   char *next;
+   while((next = strstr(x, sep))) {
+      if(info->numlabels >= info->alloclabels) {
+	 info->alloclabels += 100;
+	 info->labels = realloc(info->labels, info->alloclabels * sizeof(char*));
+	 //printf("Alloc %d = %p\n", info->alloclabels, info->labels);
+      }
+      info->labels[info->numlabels++] = strnzdup(x, (size_t)(next - x));
+      //printf("Set %d = %p %s\n", info->numlabels-1, info->labels[info->numlabels-1], info->labels[info->numlabels-1]);
+      x = (char*) skipws(next+1);
+   }
+   if(info->numlabels >= info->alloclabels) {
+      info->alloclabels += 100;
+      info->labels = realloc(info->labels, info->alloclabels * sizeof(char*));
+      //printf("Alloc %d = %p\n", info->alloclabels, info->labels);
+   }
+   info->labels[info->numlabels++] = strdup(x);
+   //printf("Set %d = %p %s\n", info->numlabels-1, info->labels[info->numlabels-1], info->labels[info->numlabels-1]);
+}
+
 /**
  * @return any remaining text not recognized as directive
  */
-static const char *parse_directive(my_dataset_t *dataset, const char *directive) {
+static const char *parse_directive(my_dataset_t *dataset, char *directive, struct load_info *info) {
    while(*directive == '!') {
-      printf("Parsing directive: %s", directive);
+      //printf("Parsing directive: %s", directive);
 
       // maxdiff(milliseconds)
       if(!strncmp(directive+1, "maxdiff(", 8)) {
@@ -100,6 +144,9 @@ static const char *parse_directive(my_dataset_t *dataset, const char *directive)
 	    return directive;
 	 }
 
+      } else if(!strncmp(directive+1, "headers", 7)) {
+	 parse_headers(directive+1, info);
+	 return directive + strlen(directive);
       } else {
 	 parse_error(dataset, _("Broken directive: %s"), directive);
 	 return directive;
@@ -108,11 +155,11 @@ static const char *parse_directive(my_dataset_t *dataset, const char *directive)
    return directive;
 }
 
-static void parse_line(my_dataset_t *dataset, char *line, my_time_t timeoff, timestamp_base_t timestamp_base) {
+static void parse_line(my_dataset_t *dataset, char *line, my_time_t timeoff, timestamp_base_t timestamp_base, struct load_info *info) {
    const char *p = line;
 
    if (unlikely(*p == '#')) {
-      parse_directive(dataset, p+1);
+      parse_directive(dataset, p+1, info);
       // TODO tell parse_directive that this directive was not tied to a specific line and thus should consider global functions only.
       return;
    }
@@ -181,7 +228,7 @@ static void parse_line(my_dataset_t *dataset, char *line, my_time_t timeoff, tim
    int i;
    for(i=0; *(p = skipws(p)); ++i) {
       if (unlikely(*p == '#')) {
-	 parse_directive(dataset, p+1);
+	 parse_directive(dataset, p+1, info);
 	 // TODO maybe use return value of parse_directive as row-specific data and store it somewhere
          break;
       }
@@ -256,11 +303,12 @@ static void set_path_and_name(my_dataset_t *dataset, char *file) {
       // no slash, use full name
       filename = dataset->path_utf8;
    }
+   dataset->defaultname = filename;
 
-   dataset->name = strdup(filename);
+   dataset->name = strdup(dataset->defaultname);
 }
 
-#define MAX_LINE_LEN 500
+#define MAX_LINE_LEN 15000
 
 my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *cb, void *user_data) {
    FILE *f = fopen(cfile, "rt");
@@ -281,9 +329,11 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
 
    time_t pd_l1 = time(0);
 
-   char line[MAX_LINE_LEN];
-   char *labels[100]; //##TODO## non-fixed
-   int numlabels = 0;
+   char line[MAX_LINE_LEN]; //##TODO## non-fixed
+   struct load_info info;
+   info.alloclabels = 100;
+   info.labels = malloc(info.alloclabels * sizeof(char*));
+   info.numlabels = 0;
 
    // fseek(f, -55 * 10000L, SEEK_END); fgets(line, (int)sizeof(line), f); // skip first partial line
 
@@ -297,9 +347,10 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
 	 if(maxlines-- == 0) {
 	    fclose(f);
             int i;
-	    for(i=0; i<numlabels; ++i) {
-	       free(labels[i]);
+	    for(i=0; i<info.numlabels; ++i) {
+	       free(info.labels[i]);
 	    }
+	    free(info.labels);
 	    parse_error(dataset, _("Too many lines\n"));
 	    print_parse_errors(dataset);
 	    free_dataset(dataset);
@@ -310,51 +361,34 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
 	 fclose(f);
 
          int i;
-	 for(i=0; i<numlabels; ++i) {
-	    free(labels[i]);
+	 for(i=0; i<info.numlabels; ++i) {
+	    free(info.labels[i]);
 	 }
+	 free(info.labels);
 	 parse_error(dataset, _("Error reading file\n"));
 	 print_parse_errors(dataset);
 	 free_dataset(dataset);
 	 return NULL;
       }
 
-      if(numlabels == 0) {
+      if(info.numlabels == 0) {
 	 // try to detect column labels
 	 const char *x = skipws(line);
 	 if(*x == '#') {
 	    x++;
-	    x = parse_directive(dataset, x);
+	    x = parse_directive(dataset, x, &info);
 	    x = skipws(x);
 	 }
 
 	 // this "detection" is too simple but works in basic cases
 	 if(isalpha(*x)) {
-	    chomp(line);
-	    // labels found -> detect separator - check for tabs, multiple spaces or default to single space
-	    const char *sep;
-	    if(strchr(x, '\t')) {
-	       sep = "\t";
-	    } else if(strstr(x, "  ")) {
-	       sep = "  ";
-	    } else {
-	       sep = " ";
-	    }
-
-	    char *next;
-	    while((next = strstr(x, sep))) {
-	       if(numlabels >= SZ(labels) - 1) break;
-	       labels[numlabels++] = strnzdup(x, (size_t)(next - x));
-	       x = skipws(next+1);
-	    }
-	    labels[numlabels++] = strdup(x);
-
+	    parse_headers(x, &info);
 	    continue;
 	 }
       } else {
 	 const char *x = strchr(line, '#');
-	 if(x) {
-	    parse_directive(dataset, x+1);
+	 if (x) {
+	    parse_directive(dataset, x+1, &info);
 	 }
       }
 
@@ -388,11 +422,11 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
       timestamp_base = TIMESTAMP_BASE_SEC;
       dataset->timetype = TIMETYPE_EPOCH;
 
-   } else if(ts_unadjusted > 3650LL * TIME_MULTIPLIER) {
+   } /* else if(ts_unadjusted > 3650LL * TIME_MULTIPLIER) {
       timestamp_base = TIMESTAMP_BASE_DAYS;
       dataset->timetype = TIMETYPE_EPOCH;
 
-   } else {
+   } */ else {
       timestamp_base = TIMESTAMP_BASE_SEC;
       dataset->timetype = TIMETYPE_START;
    }
@@ -449,7 +483,7 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
 
       int i;
       for(i=0; i<maxlines; ++i) {
-	 parse_line(dataset, line, timeoff, timestamp_base);
+	 parse_line(dataset, line, timeoff, timestamp_base, &info);
 
 	 if(!fgets(line, (int)sizeof(line), f)) break;
       }
@@ -461,7 +495,7 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
       fseek(f, -MAX_LINE_LEN - 1L, SEEK_END);
       fgets(line, (int)sizeof(line), f); // skip first partial line
       while(fgets(line, (int)sizeof(line), f)) {
-	 parse_line(dataset, line, timeoff, timestamp_base);
+	 parse_line(dataset, line, timeoff, timestamp_base, &info);
       }
 
       dataset->te = dataset->time[dataset->time_count-1];
@@ -475,7 +509,7 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
       int idx = 0;
 
       while(1) {
-	 parse_line(dataset, line, timeoff, timestamp_base);
+	 parse_line(dataset, line, timeoff, timestamp_base, &info);
 
 	 if(unlikely(!(idx % 5000))) {
 	    if(!(idx % 20000)) {
@@ -497,9 +531,12 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
 	    break;
 	 }
 
-	 // ensure complete line
+	 // ensure complete line - TODO bug if there are nul '\0' bytes in line, reading is stopped
 	 if(unlikely(!strrchr(line, '\n'))) {
 	    dataset->filepos = ftell(f) - strlen(line);
+	    if (strlen(line) >= sizeof(line) - 5) {
+	       printf("Didn't read whole line: >>%s<<\n", line);
+	    } // else we reached (temporary) EOF, tailing will read rest
 	    break;
 	 }
       }
@@ -520,14 +557,18 @@ my_dataset_t *read_dataset_int(const char *cfile, int maxlines, progress_cb_t *c
    int i;
    for(i=0; i<dataset->item_count; ++i) {
       my_data_arr_set_length(dataset->item[i].data, dataset->time_count);
-      if(i < numlabels-1 && labels[i+1]) {
-	 dataset->item[i].name = labels[i+1];
+      if(i < info.numlabels-1 && info.labels[i+1]) {
+	 dataset->item[i].name = strdup(info.labels[i+1]);
+	 dataset->item[i].defaultname = strdup(info.labels[i+1]);
       } else {
 	 char buff[200];
 	 sprintf(buff, _("item %d"), i + 1);
 	 dataset->item[i].name = strdup(buff);
       }
    }
+
+   dataset->labels = info.labels;
+   dataset->numlabels = info.numlabels;
 
    if(dataset->item_count == 0) {
       free_dataset(dataset);
@@ -580,6 +621,12 @@ int update_dataset(my_dataset_t *dataset) {
    my_time_t timeoff = dataset->timeoff;
    boolean_t timestamp_base = dataset->timestamp_base;
    int idx = 0;
+   struct load_info info;
+   info.labels = dataset->labels;
+   info.alloclabels = dataset->numlabels;
+   info.numlabels = dataset->numlabels;
+
+   int orig_numlabels = info.numlabels;
 
    while(1) {
       if(unlikely(!fgets(line, (int)sizeof(line), f))) {
@@ -593,7 +640,7 @@ int update_dataset(my_dataset_t *dataset) {
 	 break;
       }
 
-      parse_line(dataset, line, timeoff, timestamp_base);
+      parse_line(dataset, line, timeoff, timestamp_base, &info);
 
       if(unlikely(!(idx % 5000))) {
 	 if(system_check_events()) {
@@ -608,10 +655,26 @@ int update_dataset(my_dataset_t *dataset) {
 
    fclose(f);
 
+   dataset->labels = info.labels;
+   dataset->numlabels = info.numlabels;
+
    // make sure all items have same amount of elements and insert labels
    int i;
    for(i=0; i<dataset->item_count; ++i) {
+      dataset->item[i].defaultname = strdup(info.labels[i+1]);
       my_data_arr_set_length(dataset->item[i].data, dataset->time_count);
+      if (!dataset->item[i].name_locked) {
+	 if (dataset->item[i].name) {
+	    free(dataset->item[i].name);
+	 }
+	 if(i < info.numlabels-1 && info.labels[i+1]) {
+	    dataset->item[i].name = strdup(info.labels[i+1]);
+	 } else {
+	    char buff[200];
+	    sprintf(buff, _("item %d"), i + 1);
+	    dataset->item[i].name = strdup(buff);
+	 }
+      }
    }
 
    if(dataset->item_count == 0) {
@@ -645,11 +708,15 @@ my_dataset_t *read_dataset_preview(const char *cfile, int maxsamples) {
    dataset->last_modified = st.st_mtime * TIME_MULTIPLIER;
 
    char line[MAX_LINE_LEN];
+   struct load_info info;
+   info.alloclabels = 0;
+   info.labels = NULL;
+   info.numlabels = 0;
 
    int i;
    for(i=0; i<maxsamples; ++i) {
       if(!fgets(line, (int)sizeof(line), f)) break;
-      parse_line(dataset, line, 0LL, 0);
+      parse_line(dataset, line, 0LL, 0, &info);
       int off = st.st_size / (maxsamples + 1) * i - ftell(f);
       if(off > 0)
 	 fseek(f, (off_t)off, SEEK_CUR);
@@ -659,6 +726,13 @@ my_dataset_t *read_dataset_preview(const char *cfile, int maxsamples) {
    }
 
    fclose(f);
+
+   if (info.labels) {
+      for (int i=0; i<info.numlabels; ++i) {
+	 free(info.labels[i]);
+      }
+      free(info.labels);
+   }
 
    dataset->ts = dataset->time[0];
    dataset->te = dataset->time[dataset->time_count-1];
@@ -693,9 +767,11 @@ static void free_dataset(my_dataset_t *dataset) {
    int i;
    for(i=0; i<dataset->item_count; ++i) {
       my_data_arr_free(dataset->item[i].data);
-      if(dataset->item[i].name) {
-	 free(dataset->item[i].name);
-      }
+      if(dataset->item[i].defaultname) free(dataset->item[i].defaultname);
+      if(dataset->item[i].name) free(dataset->item[i].name);
+   }
+   for(i=0; i<dataset->numlabels; ++i) {
+      free(dataset->labels[i]);
    }
 
    my_time_arr_free(dataset->time);

@@ -1,17 +1,22 @@
-#!/usr/bin/perl -w
+#!/usr/bin/perl
 #
-# if you don't have Net-SNMP for perl, install in fedora with this
-# command:
+# To install dependencies:
 #
-#  yum install perl-Net-SNMP perl-Time-HiRes net-snmp-utils
+#  fedora:
+#    yum install perl-Net-SNMP perl-Time-HiRes net-snmp-utils
+#  gentoo:
+#    emerge -u dev-perl/Net-SNMP perl-core/Time-HiRes net-analyzer/net-snmp
 #
-# The net-snmp-utils above is only needed if you want to support
-# textual OIDs like HOST-RESOURCES-MIB::hrStorageUsed.5
+# The net-snmp/net-snmp-utils above is only needed if you want to
+# support textual OIDs like HOST-RESOURCES-MIB::hrStorageUsed.5
 
 use Getopt::Std;
 use Net::SNMP;
 use Time::HiRes qw(sleep time);
 use strict;
+use warnings;
+
+##TODO## support compression a'la processmonitor
 
 # SNMP::MIB::Compiler if name -> oid resolving needed, no fedora
 # package though :/

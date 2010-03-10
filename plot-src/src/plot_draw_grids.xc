@@ -103,6 +103,7 @@ void plot_draw_grid_precalc(my_plot_draw_t *plot) {
    plot->tmp.min_diff_field = TIME_FIELD_MILLISEC;
 
    if(plot->tmp.max_diff_field == TIME_FIELD_MILLISEC) plot->tmp.max_diff_field = TIME_FIELD_SEC;
+   if(plot->tmp.max_diff_field == TIME_FIELD_MIN) plot->tmp.max_diff_field = TIME_FIELD_HOUR;
    if(plot->tmp.max_diff_field == TIME_FIELD_MONTH) plot->tmp.max_diff_field = TIME_FIELD_YEAR;
 
    paintapi_textlayout_extents_t ri;
@@ -150,6 +151,7 @@ void plot_draw_grid_precalc(my_plot_draw_t *plot) {
       time_field_t resulting_min_diff_field = time_diff_field((my_time_t)(plot->tmp.time_grid.dv * (1 + 1e-10)));
 
       if(resulting_min_diff_field == TIME_FIELD_HOUR) resulting_min_diff_field = TIME_FIELD_MIN;
+      if(resulting_min_diff_field == TIME_FIELD_MONTH || resulting_min_diff_field == TIME_FIELD_YEAR) resulting_min_diff_field = TIME_FIELD_DAY; // TODO remove when calc_time_grid fixed
 
       //printf("pass %d - %d\n", resulting_min_diff_field, plot->tmp.min_diff_field);
 
@@ -186,6 +188,7 @@ void plot_draw_time_grid(my_plot_draw_t *plot) {
    int doff = -(int)(plot->ymin * plot->plot_yde / ylength);
    plot->paintapi->gc_set_dashes(plot->paintapi, plot->grid.major_gc, doff, major_dashes, SZ(major_dashes));
    plot->paintapi->gc_set_dashes(plot->paintapi, plot->grid.minor_gc, doff, minor_dashes, SZ(minor_dashes));
+   plot->paintapi->gc_set_dashes(plot->paintapi, plot->grid.zerogrid_gc, doff, major_dashes, SZ(major_dashes));
 
    // draw text labels
    int odd = ((int)round(plot->tmp.time_grid.dvmin / plot->tmp.time_grid.dv)) % 2;
@@ -231,7 +234,9 @@ void plot_draw_time_grid(my_plot_draw_t *plot) {
 
       // TODO maybe plot minor & major separately for further osx optimizations?
 
-      paintapi_gc_t *gc = ((int)round(xvo / plot->tmp.time_grid.dv)) % plot->tmp.time_grid.minpermaj == 0 ? plot->grid.major_gc : plot->grid.minor_gc;
+      paintapi_gc_t *gc = fabs(xvo / plot->tmp.time_grid.dv) < 1e-10 ?
+			  plot->grid.zerogrid_gc :
+                          ((int)round(xvo / plot->tmp.time_grid.dv)) % plot->tmp.time_grid.minpermaj == 0 ? plot->grid.major_gc : plot->grid.minor_gc;
 
       plot->paintapi->draw_line(plot->paintapi, gc, x, 0, x, y);
    }

@@ -48,12 +48,21 @@ static paintapi_gc_t *dash;
 static paintapi_gc_t *xor;
 static paintapi_font_t *font10;
 
-static void draw_text_advance(paintapi_gc_t *gc, paintapi_font_t *font, int xp, int *ypp, const char *text) {
+static void draw_text_advance2(paintapi_gc_t *gc, paintapi_font_t *font, pa_boolean strikeout, int xp, int *ypp, const char *text) {
    paintapi_textlayout_t *layout = a->textlayout_create(a, font, text);
    paintapi_textlayout_extents_t rect;
    a->textlayout_calculate_size(a, layout, &rect);
+   if(strikeout) {
+      a->textlayout_set_strikeout(a, layout);
+   }
+   *ypp -= rect.yt;
+   printf("-- %s\n", text);
    a->draw_textlayout(a, gc, xp, *ypp, layout);
    *ypp += rect.yb;
+}
+
+static void draw_text_advance(paintapi_gc_t *gc, paintapi_font_t *font, int xp, int *ypp, const char *text) {
+   draw_text_advance2(gc, font, 0, xp, ypp, text);
 }
 
 static void do_font_test(paintapi_font_t *font, int xp, int *ypp, const char *text) {
@@ -204,9 +213,9 @@ void paintapi_test(paintapi_t *api, paintapi_font_t *font10_, paintapi_font_t *f
    }
 
    // draw 3
-   a->draw_segments(a, white, cross1, 8);
+   a->draw_segments(a, white, cross1, 4);
    // draw 4
-   a->draw_segments(a, white, cross2, 8);
+   a->draw_segments(a, white, cross2, 4);
 
    xp -= 10 + 30;
    yp += 16;
@@ -357,7 +366,8 @@ void paintapi_test(paintapi_t *api, paintapi_font_t *font10_, paintapi_font_t *f
 
    draw_text_advance(green, font10, xp, &yp, "Two filled boxes which XOR each other");
    draw_text_advance(green, font10, xp, &yp, "which should leave a hole where");
-   draw_text_advance(green, font10, xp, &yp, "they overlap.");
+   draw_text_advance(green, font10, xp, &yp, "they overlap. In non-interactive output,");
+   draw_text_advance(green, font10, xp, &yp, "the hole might me missing. This is ok.");
 
    yp += 6;
 
@@ -365,6 +375,10 @@ void paintapi_test(paintapi_t *api, paintapi_font_t *font10_, paintapi_font_t *f
    a->draw_rectangle(a, xor, 1, xp+6, yp+6, xp+16, yp+16);
 
    yp += 22;
+
+   ////
+
+   draw_text_advance2(green, font20, 1, xp, &yp, "Strikeut test!");
 
    /////
 

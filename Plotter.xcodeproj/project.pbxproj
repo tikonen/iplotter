@@ -24,6 +24,7 @@
 		C447B09209C1F74C000178B3 /* ForwardAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = C447B09109C1F74C000178B3 /* ForwardAdorn.tif */; };
 		C447B38F09C2AD8C000178B3 /* DownAdorn.tif in Resources */ = {isa = PBXBuildFile; fileRef = C447B38E09C2AD8C000178B3 /* DownAdorn.tif */; };
 		C447B70109C478B5000178B3 /* iPlotter.icns in Resources */ = {isa = PBXBuildFile; fileRef = C447B70009C478B5000178B3 /* iPlotter.icns */; };
+		C49359A51148499900880AD5 /* plot_draw_logo.c in Sources */ = {isa = PBXBuildFile; fileRef = C49359A41148499800880AD5 /* plot_draw_logo.c */; };
 		C4D1028A09DEE7B30025FAEB /* misc-util.c in Sources */ = {isa = PBXBuildFile; fileRef = C4D1028909DEE7B30025FAEB /* misc-util.c */; };
 		C4D5E2C609CA046700AC2D7E /* LoadIndicatorPanel.nib in Resources */ = {isa = PBXBuildFile; fileRef = C4D5E2C509CA046700AC2D7E /* LoadIndicatorPanel.nib */; };
 		C4D5E2C909CA050800AC2D7E /* LoadIndicatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4D5E2C809CA050800AC2D7E /* LoadIndicatorController.m */; };
@@ -67,6 +68,7 @@
 		C447B09109C1F74C000178B3 /* ForwardAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = ForwardAdorn.tif; path = images/ForwardAdorn.tif; sourceTree = "<group>"; };
 		C447B38E09C2AD8C000178B3 /* DownAdorn.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = DownAdorn.tif; path = images/DownAdorn.tif; sourceTree = "<group>"; };
 		C447B70009C478B5000178B3 /* iPlotter.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = iPlotter.icns; sourceTree = "<group>"; };
+		C49359A41148499800880AD5 /* plot_draw_logo.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = plot_draw_logo.c; path = "plot-src/src/plot_draw_logo.c"; sourceTree = "<group>"; };
 		C4D1028909DEE7B30025FAEB /* misc-util.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = "misc-util.c"; path = "plot-src/src/misc-util.c"; sourceTree = "<group>"; };
 		C4D5E2C509CA046700AC2D7E /* LoadIndicatorPanel.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = LoadIndicatorPanel.nib; sourceTree = "<group>"; };
 		C4D5E2C709CA050800AC2D7E /* LoadIndicatorController.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = LoadIndicatorController.h; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				C49359A41148499800880AD5 /* plot_draw_logo.c */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
 				C41DFA8409B8BCAB00032EB5 /* paintapi-cocoa.m */,
 				32DBCF750370BD2300C91783 /* Plotter_Prefix.pch */,
@@ -298,6 +301,7 @@
 				C4DA114409DFD4E1000A752C /* plot_draw_grids.c in Sources */,
 				C4DA114509DFD4E1000A752C /* plot_draw_legend.c in Sources */,
 				C4DA114609DFD4E1000A752C /* plot_draw_lines.c in Sources */,
+				C49359A51148499900880AD5 /* plot_draw_logo.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

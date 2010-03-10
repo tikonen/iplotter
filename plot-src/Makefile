@@ -19,7 +19,7 @@
 ####
 # Makefile - used to compile everything
 
-MODULES := gtk+-2.0 libglade-2.0
+MODULES := gtk+-2.0 libglade-2.0 cairo
 
 TEST_WARNINGS = -Wimport \
 -Wchar-subscripts \
@@ -92,14 +92,15 @@ UNUSED = \
 #PACKAGE_LOCALE_DIR := $(PREFIX)/share/locale
 
 # defaults for running from build env
+GLADEFILE ?= $(shell pwd)/plot.glade
 PACKAGE_LOCALE_DIR ?= $(shell pwd)/locale
 
 
 CFLAGS := \
 	-MMD \
-	-g \
+	-ggdb \
 	-fomit-frame-pointer \
-	-std=c99 \
+	-std=gnu99 \
 	-fPIC \
 	$(DETECTED_CFLAGS) \
 	$(shell pkg-config --cflags $(MODULES)) \
@@ -108,11 +109,11 @@ CFLAGS := \
 	-D_GNU_SOURCE \
 	$(CFLAGS) \
 	\
-	$(if $(CFLAGS_GLADEFILE),-DGLADEFILE='"$(CFLAGS_GLADEFILE)"') \
+	$(if $(GLADEFILE),-DGLADEFILE='"$(GLADEFILE)"') \
 	-DPACKAGE_LOCALE_DIR='"$(PACKAGE_LOCALE_DIR)"'
 
-LDFLAGS := $(shell pkg-config --libs $(MODULES)) -lm $(DETECTED_LDFLAGS)
-CC := gcc
+LDFLAGS := $(shell pkg-config --libs $(MODULES)) -lm $(DETECTED_LDFLAGS) $(LDFLAGS)
+CC ?= gcc
 
 CFLAGS += -O2
 CFLAGS += -funit-at-a-time
@@ -122,13 +123,13 @@ CFLAGS += -funit-at-a-time
 
 all: checks binaries po/plot.pot po_to_mo gladefixes 
 
-binaries: plot2 plot-test paintapi-test-gtk test-dataset-read
+binaries: plot2 plot-test paintapi-test-gtk paintapi-test-cairo test-dataset-read
 
 po_to_mo: $(patsubst po/%.po,locale/%/LC_MESSAGES/plot.mo,$(wildcard po/*.po))
 
-gladefixes: .stamp.neutralize-image-ids
+gladefixes: .stamp.normalize-glade-file
 
-plot2: \
+PLOT2_OBJS = \
 		src/gtk/compat.o \
 		src/gtk/data_scrollbar_controller.o \
 		src/gtk/eventhandlers.o \
@@ -141,6 +142,7 @@ plot2: \
 		src/gtk/font_dialog.o \
 		src/gtk/gtkutil.o \
 		src/gtk/main.o \
+		src/gtk/paintapi-cairo.o \
 		src/gtk/paintapi-gtk.o \
 		src/gtk/plot2-datafiles.o \
 		src/gtk/plot2-markers.o \
@@ -157,11 +159,20 @@ plot2: \
 		src/plot_draw_grids.o \
 		src/plot_draw_legend.o \
 		src/plot_draw_lines.o \
+		src/plot_draw_logo.o \
 		src/stringutil.o \
 		src/misc-util.o \
 		src/whls.o \
 
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@ $^
+plot2: $(PLOT2_OBJS)
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@
+
+# the .exe targets require mingw32-gcc as CC
+plot2-with-console.exe: $(PLOT2_OBJS)
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -mconsole -o $@
+
+plot2.exe: $(PLOT2_OBJS)
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -mwindows -o $@
 
 plot-test: \
 		src/gtk/compat.o \
@@ -184,11 +195,30 @@ plot-test: \
 		src/plot_draw_grids.o \
 		src/plot_draw_legend.o \
 		src/plot_draw_lines.o \
+		src/plot_draw_logo.o \
 		src/stringutil.o \
 		src/misc-util.o \
 		src/whls.o \
 
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@ $^
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@
+
+
+grid-test: \
+		src/gtk/compat.o \
+		src/gtk/data_scrollbar_controller.o \
+		src/gtk/gtkutil.o \
+		src/gtk/paintapi-gtk.o \
+		\
+		src/gtk-grid-test/eventhandlers.o \
+		src/gtk-grid-test/main.o \
+		src/gtk-grid-test/eventhandlers-plot-draw.o \
+		\
+		src/grid.o \
+		src/stringutil.o \
+		src/misc-util.o \
+		src/whls.o \
+
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@
 
 paintapi-test-gtk: \
 		src/gtk/gtkutil.o \
@@ -198,7 +228,17 @@ paintapi-test-gtk: \
 		src/paintapi-test.o \
 		src/whls.o \
 
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@ $^
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@
+
+paintapi-test-cairo: \
+		src/gtk/gtkutil.o \
+		src/gtk/paintapi-cairo.o \
+		src/gtk/paintapi-test-cairo.o \
+		\
+		src/paintapi-test.o \
+		src/whls.o \
+
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@
 
 test-dataset-read: \
 		src/test-dataset-read.o \
@@ -206,20 +246,20 @@ test-dataset-read: \
 		src/stringutil.o \
 		src/misc-util.o \
 
-	@$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@ $^
+	@$(CC) $^ $(CFLAGS) $(CPPFLAGS) $(LDFLAGS) $(TARGET_ARCH) $(LOADLIBES) $(LDLIBS) -o $@
 
-.stamp.neutralize-image-ids: $(wildcard *.glade) fix-glade.pl
-	@./fix-glade.pl *.glade
+.stamp.normalize-glade-file: $(wildcard *.glade) fix-glade.pl fix-glade-2.pl
+	@for i in *.glade ; do ./fix-glade-2.pl $$i > $$i.tmp1 && ./fix-glade.pl < $$i.tmp1 > $$i.tmp && ( cat $$i.tmp > $$i ; rm $$i.tmp $$i.tmp1 ) ; done
 	@touch $@
 
 %.o: %.xc
 	@if ! ./xcpp.pl $< $@ < $< > $(patsubst %.xc, %.c, $<) ; then rm $<.d ; exit 1 ; fi
 #	@echo cc $<
-	@$(CC) $(CFLAGS) -c -o $@ $(patsubst %.xc, %.c, $<) ; a=$$? ; bsed 's!$(patsubst %.xc,%.c,$<)!$<!' $(patsubst %.xc, %.d, $<) ; rm $(patsubst %.xc, %.c, $<) ; exit $$a
-#	@$(CC) $(CFLAGS) -c -o $@ $(patsubst %.xc, %.c, $<) ; a=$$? ; if [ "$$a" = 0 ]; then bsed 's!$(patsubst %.xc,%.c,$<)!$<!' $(patsubst %.xc, %.d, $<) ; else rm $(patsubst %.xc, %.d, $<) ; fi ; rm $(patsubst %.xc, %.c, $<) ; exit $$a
+	@$(CC) $(CFLAGS) -c -o $@ $(patsubst %.xc, %.c, $<) ; a=$$? ; perl -i -pe 's!\Q$(patsubst %.xc,%.c,$<)\E!$<!' $(patsubst %.xc, %.d, $<) ; rm $(patsubst %.xc, %.c, $<) ; exit $$a
+#	@$(CC) $(CFLAGS) -c -o $@ $(patsubst %.xc, %.c, $<) ; a=$$? ; if [ "$$a" = 0 ]; then perl -i -pe 's!$(patsubst %.xc,%.c,$<)!$<!' $(patsubst %.xc, %.d, $<) ; else rm $(patsubst %.xc, %.d, $<) ; fi ; rm $(patsubst %.xc, %.c, $<) ; exit $$a
 
 clean:
-	rm -f plot2 plot-test paintapi-test-gtk test-dataset-read src/*.o src/*.d src/gtk/*.o src/gtk/*.d src/gtktest/*.o src/gtktest/*.d ||:
+	rm -f plot2 plot-test paintapi-test-gtk test-dataset-read *.exe src/*.o src/*.d src/gtk/*.o src/gtk/*.d src/gtktest/*.o src/gtktest/*.d ||:
 	rm -r locale ||:
 
 # use this if some external component changes and you need a full rebuild
@@ -257,11 +297,12 @@ locale/%/LC_MESSAGES/plot.mo: po/%.po
 # check generic cflags
 .check-cflags: Makefile
 	@echo 'Checking for supported CFLAGS options..'
-	@touch .tmp.cflags.c && ( gcc $(TEST_CFLAGS) -o .tmp.cflags.out .tmp.cflags.c > .tmp.cflags.1 2>&1 ; perl -pe 's/.*(-W[-a-zA-Z]+).*/$$1/' < .tmp.cflags.1 > .tmp.cflags.2 ) && ( echo $(TEST_CFLAGS) | tr ' ' '\n' | fgrep -v -f .tmp.cflags.2 > $@ ) && rm .tmp.cflags*
+	@touch .tmp.cflags.c && ( $(CC) $(TEST_CFLAGS) -o .tmp.cflags.out .tmp.cflags.c > .tmp.cflags.1 2>&1 ; perl -pe 's/.*(-[fW][-a-zA-Z]+).*/$$1/' < .tmp.cflags.1 > .tmp.cflags.2 ) && ( echo $(TEST_CFLAGS) | tr ' ' '\n' | fgrep -v -f .tmp.cflags.2 > $@ ) && rm .tmp.cflags*
 
 # check for libfam
+# TODO /lib/libfam.so check is bogous when cross-compiling, for now comment out the @if line when cross-compiling without fam support
 .check-fam-cflags .check-fam-ldflags:
 	@echo 'Checking for FAM support..'
-	@if [ -e /lib/libfam.so -o -e /usr/lib/libfam.so ]; then echo '-DUSE_FAM' > $@ ; echo '-lfam' > $(patsubst %-cflags,%-ldflags,$@) ; else :> $@ ; :> $(patsubst %-cflags,%-ldflags,$@) ; fi
+	@if [ -e /lib/libfam.so -o -e /usr/lib/libfam.so -o -e /lib/libfam.so.0 -o -e /usr/lib/libfam.so.0 ] && [ -e /usr/include/fam.h ] ; then echo '-DUSE_FAM' > $@ ; echo '-lfam' > $(patsubst %-cflags,%-ldflags,$@) ; else :> $@ ; :> $(patsubst %-cflags,%-ldflags,$@) ; fi
 
 -include /dev/null $(wildcard src/*.d) $(wildcard src/gtk/*.d) $(wildcard src/gtktest/*.d)
