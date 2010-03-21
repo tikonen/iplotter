@@ -15,7 +15,7 @@ dev_handle=`hdid build/$1.dmg | grep Apple_HFS | perl -e '\$_=<>; /^\\/dev\\/(di
 ditto -rsrc "RELEASENOTES.txt" "/Volumes/$2/"
 ditto -rsrc "LICENSE" "/Volumes/$2/"
 ditto -rsrc "build/Release" "/Volumes/$2/"
-ditto -rsrc "../sampledata/" "/Volumes/$2/sampledata"
+ditto -rsrc "sampledata/" "/Volumes/$2/sampledata"
 
 # unmount the volume
 hdiutil detach $dev_handle
