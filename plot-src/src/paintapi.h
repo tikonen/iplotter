@@ -1,0 +1,202 @@
+#ifndef __xcpp_paintapi_xh
+#define __xcpp_paintapi_xh
+/*
+ * Plot - plot time-based data on screen and to file with interactive controls
+ * Copyright (C) 2006  Jonas Berlin <xkr47@outerspace.dyndns.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ ****
+ * paintapi - defines the paintapi interface
+ */
+
+typedef struct {
+      unsigned short r, g, b; // values can be 0 - 65535
+} paintapi_rgb_t;
+
+typedef enum {
+   PAINTAPI_FUNCTION_SET,
+   PAINTAPI_FUNCTION_XOR,
+} paintapi_function_t;
+
+typedef int pa_boolean;
+
+typedef struct {
+      int x,y;
+} paintapi_point_t;
+
+typedef struct {
+
+      // left & rightmost extents where pixels will be drawn (relative
+      // to x1 that was given to draw_text())
+      int xl, xr;
+
+      // top & bottommost extents where pixels will be drawn (relative
+      // to y1 that was given to draw_text())
+      int yt, yb;
+
+} paintapi_textlayout_extents_t;
+
+// types that are api-specific and not accessible outside the api
+typedef struct paintapi_gc_s paintapi_gc_t;
+typedef struct paintapi_textlayout_s paintapi_textlayout_t;
+typedef struct paintapi_font_s paintapi_font_t;
+
+typedef struct paintapi_s paintapi_t;
+
+struct paintapi_s {
+
+      // free the resourced allocated by api, if any
+      void (*api_free)(paintapi_t *api_instance);
+
+      /**
+       * Get the size of the surface being drawn on.
+       */
+      void (*get_size)(paintapi_t *api_instance, int *w, int *h);
+
+      // returns GC instance
+      paintapi_gc_t *(*gc_new)(paintapi_t *api_instance);
+      void (*gc_free)(paintapi_t *api_instance, paintapi_gc_t *gc);
+
+      /**
+       * This turns the gc line drawing into dashed mode - there is no
+       * return :) dash_offset can be negative. If the api
+       * implementation can't handle negative dash offsets, use this
+       * piece of code to fix that:
+       *
+       *  if(dash_offset < 0) {
+       *     int sum = 0, i;
+       *     for(i=0; i<dash_list_len; ++i) {
+       *        sum += dash_list[i];
+       *     }
+       *     dash_offset = dash_offset % sum + sum;
+       *  }
+       */
+      void (*gc_set_dashes)(paintapi_t *api_instance, paintapi_gc_t *gc, int dash_offset, const char *dash_list, int dash_list_len);
+      void (*gc_set_foreground)(paintapi_t *api_instance, paintapi_gc_t *gc, paintapi_rgb_t *color);
+      void (*gc_set_function)(paintapi_t *api_instance, paintapi_gc_t *gc, paintapi_function_t function);
+
+      /**
+       * Draw a line from x1,y1 to x2,y2 including end points.
+       */
+      void (*draw_line)(paintapi_t *api_instance, paintapi_gc_t *gc, int x1, int y1, int x2, int y2);
+
+      /**
+       * Draw a continuous set of lines, x1,y1 to x2,y2, x2,y2 to
+       * x3,y3 etc.
+       */
+      void (*draw_lines)(paintapi_t *api_instance, paintapi_gc_t *gc, paintapi_point_t *point_list, int point_list_len);
+
+      /**
+       * Draw a discontinuous set of lines, x1,y1 to x2,y2, x3,y3 to
+       * x4,y4 etc.
+       *
+       * segment_list_len = number_of_points_in_segment_list / 2;
+       */
+      void (*draw_segments)(paintapi_t *api_instance, paintapi_gc_t *gc, paintapi_point_t *segment_list, int segment_list_len);
+
+      /**
+       * Draw a filled or non-filled rectangle whose corners are at
+       * x1,y1 and x2,y2.
+       */
+      void (*draw_rectangle)(paintapi_t *api_instance, paintapi_gc_t *gc, pa_boolean filled, int x1, int y1, int x2, int y2);
+
+      /**
+       * Draw closed path, x1,y2 to x2,y2 to x3,y3 et.. The function closes
+       * the path if not already closed.
+       */
+      void (*draw_closed_path)(paintapi_t *api_instance, paintapi_gc_t *gc, pa_boolean filled, paintapi_point_t *point_list, int point_list_len);
+
+      /**
+       * Draw text at x1,y1. This function currently places no
+       * requirements on text alignment so text it's pretty
+       * unpredictable. Use textlayout functions for precise text
+       * alignment.
+       */
+      void (*draw_text)(paintapi_t *api_instance, paintapi_gc_t *gc, paintapi_font_t *font, int x1, int y1, const char *text);
+
+      /**
+       * Draw textlayout with baseline starting at x1,y1. It's not
+       * defined where in a glyph the baseline should go. Some apis
+       * set the baseline at the bottommost pixel of a "A", some at
+       * the topmost, and probably others somewhere else. The only
+       * requirement is that if you print a string with the same font
+       * (and font size) containing some specific character, say 'g',
+       * then the difference between the y offset of the topmost pixel
+       * of 'g' drawn and the y1 parameter must be fixed regardless of
+       * what other characters are printed.
+       *
+       * The textlayout_calculate_size() function is to be used to
+       * determine the ascent and descent around this baseline.
+       *
+       * The layout should be created with textlayout_create() below.
+       */
+      void (*draw_textlayout)(paintapi_t *api_instance, paintapi_gc_t *gc, int x1, int y1, paintapi_textlayout_t *layout);
+
+      /**
+       * Create a textlayout. This is mostly used together with
+       * draw_textlayout() above instead of just draw_text() to be
+       * able to calculate the size of it (see
+       * textlayout_calculate_size() below. After use, you must call
+       * textlayout_free().
+       */
+      paintapi_textlayout_t *(*textlayout_create)(paintapi_t *api_instance, paintapi_font_t *font, const char *text);
+
+      /**
+       * Free a textlayout when it's no longer used. This must be
+       * called for all objects created with textlayout_create() once
+       * they are no longer needed.
+       */
+      void (*textlayout_free)(paintapi_t *api_instance, paintapi_textlayout_t *layout);
+
+      /**
+       * This calculates the size of a textlayout.
+       *
+       * Upon return, these assumptions can be made upon the size
+       * struct contents (x1,y1 are the coords given to
+       * draw_textlayout()):
+       *
+       * -- xl is the offset from x1 where the leftmost pixel will be
+       * drawn.
+       *
+       * -- yt is the offset from y1 where the topmost pixel will be
+       * drawn.
+       *
+       * -- xr is the offset from x1 where the rightmost pixel will be
+       * drawn.
+       *
+       * -- yb is the offset from y1 where the bottommost pixel will
+       * be drawn.
+       *
+       * -- the width of the rendered text will be xr - xl + 1
+       *
+       * -- the height of the rendered text will be yb - yt + 1
+       */
+      void (*textlayout_calculate_size)(paintapi_t *api_instance, paintapi_textlayout_t *layout, paintapi_textlayout_extents_t *size);
+
+      /**
+       * If called for a layout, it will be drawn with strikeout.
+       * There is no way back once this has been set.
+       */
+      void (*textlayout_set_strikeout)(paintapi_t *api_instance, paintapi_textlayout_t *layout);
+};
+
+/*
+ * Local variables:
+ * c-file-style: "ellemtel"
+ * c-file-offsets: ((c . c-lineup-dont-change) (statement-cont . (lambda (le) (if (save-excursion (goto-char (cdr le)) (looking-at "return")) (c-lineup-java-inher le) (c-lineup-math le)))))
+ * End:
+ */
+#endif

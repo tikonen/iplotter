@@ -1,0 +1,105 @@
+#ifndef __xcpp_system_xh
+#define __xcpp_system_xh
+/*
+ * Plot - plot time-based data on screen and to file with interactive controls
+ * Copyright (C) 2006  Jonas Berlin <xkr47@outerspace.dyndns.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ ****
+ * common - common system basic stuff for all implementations -
+ * implemented elsewhere, this just defines the interface
+ */
+
+#include "plot-types.h"
+#include "stringutil.h"
+
+/**************
+
+  These functions & variables must be provided by the system-specific
+  code.
+
+***************/
+
+// whether the application should quit asap.. any pending saves should
+// be probably be completed though..
+extern boolean_t quit;
+
+// returns 1
+boolean_t request_quit(void);
+
+// returns "quit" after checking events
+boolean_t system_check_events(void);
+
+// returns malloced utf-8 string, if system uses utf-8 natively, just strdup filename.
+char *filename_to_utf8(const char *filename);
+
+#ifdef __MINGW32__
+#define bzero(a,b) memset(a,'\0',b)
+#define exp10(x) pow(x,10.0)
+#endif
+
+#ifdef __CYGWIN__
+#define INFINITY	__builtin_inf()
+#define NAN           __builtin_nan("")
+#define exp10(x) pow(x,10)
+#endif
+
+/**************
+
+  End of required system-specific functions list
+
+***************/
+
+#define PACKAGE "plot"
+
+#ifdef ENABLE_NLS
+#include <libintl.h>
+#  undef _
+#  undef gettext
+#  undef ngettext
+#  define gettext(String) dgettext (PACKAGE, String)
+#  define ngettext(String1, StringN, n) dngettext (PACKAGE, String1, StringN, n)
+// be sure to update xgettext command in Makefile if you add more _*() macros or functions
+#  define _(String) gettext (String)
+#  define _n(String) ngettext (String1, StringN, n)
+#  define _c(String) utf8_to_console(_(String))
+#  define Q_(String) strip_context ((String), gettext (String))
+#  ifdef gettext_noop
+#    define N_(String) gettext_noop (String)
+#  else
+#    define N_(String) (String)
+#  endif
+#else
+#  define textdomain(String) (String)
+#  define gettext(String) (String)
+#  define dgettext(Domain,Message) (Message)
+#  define dcgettext(Domain,Message,Type) (Message)
+#  define bindtextdomain(Domain,Directory) (Directory)
+#  define bind_textdomain_codeset(Domain,Codeset) (Codeset)
+#  define _(String) (String)
+#  define _n(String1, StringN, n) ((n) == 1 ? (String1) : (StringN))
+#  define _c(String) (String)
+#  define Q_(String) strip_context ((String), (String))
+#  define N_(String) (String)
+#endif
+
+/*
+ * Local variables:
+ * c-file-style: "ellemtel"
+ * c-file-offsets: ((c . c-lineup-dont-change) (statement-cont . (lambda (le) (if (save-excursion (goto-char (cdr le)) (looking-at "return")) (c-lineup-java-inher le) (c-lineup-math le)))))
+ * End:
+ */
+#endif

@@ -1,0 +1,47 @@
+#ifndef __xcpp_grid_xh
+#define __xcpp_grid_xh
+/*
+ * Plot - plot time-based data on screen and to file with interactive controls
+ * Copyright (C) 2006  Jonas Berlin <xkr47@outerspace.dyndns.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ ****
+ * grid - functions for calculating suitable gridline coordinates
+ * given a range to be shown
+ */
+
+#include <string.h>
+
+#include "gnu_extensions.h"
+
+typedef struct {
+      double dmin, d, dmax;
+      double dvmin, dv, dvmax;
+      int minpermaj;
+} grid_t;
+
+WARN_UNUSED_RESULT NONNULL CONST grid_t calc_gen_grid(double min, double max, int max_gridlines, int scalelength, int div, int lb, int *toff, int tofflen);
+WARN_UNUSED_RESULT CONST grid_t calc_value_grid(double min, double max, int max_gridlines, int scalelength);
+WARN_UNUSED_RESULT CONST grid_t calc_log_value_grid(double min, double max, int max_gridlines, int scalelength);
+WARN_UNUSED_RESULT CONST grid_t calc_time_grid(double min, double max, int max_gridlines, int scalelength);
+
+/*
+ * Local variables:
+ * c-file-style: "ellemtel"
+ * c-file-offsets: ((c . c-lineup-dont-change) (statement-cont . (lambda (le) (if (save-excursion (goto-char (cdr le)) (looking-at "return")) (c-lineup-java-inher le) (c-lineup-math le)))))
+ * End:
+ */
+#endif

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?><project><datafile><path>/Users/teemu/projects/testdata/recv_mo_recv_ds-smppadapter-20060305-lopass.txt</path><name>smappadapter</name><line><column>1</column><name>SUM</name></line></datafile><datafile><path>/Users/teemu/projects/testdata/recv_mo_recv_ds-smppadapter-20060305.txt</path><name>smppadapter</name><line><column>1</column><name>RECV MO</name></line><line><column>2</column><name>RECV DS
+</name></line></datafile><spp>2</spp></project>

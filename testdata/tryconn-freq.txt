@@ -1,0 +1,771 @@
+TIME    	TRYING	CONNECTED
+1141077668 	 # interval length 59 seconds
+1141077698 	10.7	10.7
+1141077730 	5.93	5.93 # interval length 32 seconds
+1141077788 	0	0 # interval length 58 seconds
+1141077818 	10.86	10.86
+1141077849 	5.96	5.96 # interval length 31 seconds
+1141077909 	0	0 # interval length 60 seconds
+1141077939 	10.6	10.6
+1141077981 	4.59	4.59 # interval length 42 seconds
+1141078030 	0	0 # interval length 49 seconds
+1141078060 	11.03	11
+1141078091 	5.83	5.83 # interval length 31 seconds
+1141078151 	0	0 # interval length 60 seconds
+1141078181 	11.16	11.16
+1141078212 	5.67	5.67 # interval length 31 seconds
+1141078271 	0	0 # interval length 59 seconds
+1141078301 	10.7	10.7
+1141078333 	5.93	5.93 # interval length 32 seconds
+1141078393 	0	0 # interval length 60 seconds
+1141078423 	10.83	10.83
+1141078455 	5.81	5.81 # interval length 32 seconds
+1141078515 	0	0 # interval length 60 seconds
+1141078545 	10.83	10.83
+1141078577 	5.81	5.81 # interval length 32 seconds
+1141078635 	0	0 # interval length 58 seconds
+1141078665 	10.8	10.8
+1141078697 	5.81	5.84 # interval length 32 seconds
+1141078756 	0	0 # interval length 59 seconds
+1141078786 	10.73	10.73
+1141078818 	5.9	5.9 # interval length 32 seconds
+1141078877 	0	0 # interval length 59 seconds
+1141078907 	10.9	10.9
+1141078939 	5.75	5.75 # interval length 32 seconds
+1141078998 	0	0 # interval length 59 seconds
+1141079028 	10.63	10.63
+1141079060 	6	6 # interval length 32 seconds
+1141079119 	0	0 # interval length 59 seconds
+1141079149 	10.86	10.86
+1141079181 	5.78	5.78 # interval length 32 seconds
+1141079240 	0	0 # interval length 59 seconds
+1141079270 	10.86	10.86
+1141079302 	5.78	5.78 # interval length 32 seconds
+1141079361 	0	0 # interval length 59 seconds
+1141079391 	10.63	10.63
+1141079424 	5.81	5.81 # interval length 33 seconds
+1141079483 	0	0 # interval length 59 seconds
+1141079513 	10.83	10.83
+1141079545 	5.84	5.84 # interval length 32 seconds
+1141079606 	0	0 # interval length 61 seconds
+1141079636 	11.2	11.2
+1141079667 	5.64	5.64 # interval length 31 seconds
+1141079727 	0	0 # interval length 60 seconds
+1141079757 	10.66	10.66
+1141079789 	5.96	5.96 # interval length 32 seconds
+1141079849 	0	0 # interval length 60 seconds
+1141079879 	9.16	9.13
+1141079916 	6.4	6.4 # interval length 37 seconds
+1141079970 	0	0 # interval length 54 seconds
+1141080002 	7.96	7.96 # interval length 32 seconds
+1141080040 	6.76	6.76 # interval length 38 seconds
+1141080091 	0	0 # interval length 51 seconds
+1141080121 	10.63	10.63
+1141080153 	6	6 # interval length 32 seconds
+1141080214 	0	0 # interval length 61 seconds
+1141080244 	11.06	11.06
+1141080275 	5.77	5.77 # interval length 31 seconds
+1141080335 	0	0 # interval length 60 seconds
+1141080365 	10.86	10.86
+1141080397 	5.81	5.81 # interval length 32 seconds
+1141080456 	0	0 # interval length 59 seconds
+1141080486 	10.56	10.56
+1141080519 	5.9	5.9 # interval length 33 seconds
+1141080577 	0	0 # interval length 58 seconds
+1141080607 	10.96	10.96
+1141080639 	5.68	5.68 # interval length 32 seconds
+1141080700 	0	0 # interval length 61 seconds
+1141080730 	10.73	10.73
+1141080762 	5.93	5.93 # interval length 32 seconds
+1141080821 	0	0 # interval length 59 seconds
+1141080851 	10.6	10.6
+1141080884 	5.87	5.87 # interval length 33 seconds
+1141080943 	0	0 # interval length 59 seconds
+1141080973 	11	11
+1141081004 	5.83	5.83 # interval length 31 seconds
+1141081064 	0	0 # interval length 60 seconds
+1141081094 	10.86	10.86
+1141081126 	5.81	5.81 # interval length 32 seconds
+1141081185 	0	0 # interval length 59 seconds
+1141081215 	11	11
+1141081246 	5.83	5.83 # interval length 31 seconds
+1141081307 	0	0 # interval length 61 seconds
+1141081337 	10.93	10.93
+1141081368 	5.9	5.9 # interval length 31 seconds
+1141081430 	0	0 # interval length 62 seconds
+1141081460 	10.96	10.96
+1141081491 	5.87	5.87 # interval length 31 seconds
+1141081551 	0	0 # interval length 60 seconds
+1141081581 	10.76	10.76
+1141081613 	5.87	5.87 # interval length 32 seconds
+1141081672 	0	0 # interval length 59 seconds
+1141081702 	10.56	10.56
+1141081734 	6.09	6.09 # interval length 32 seconds
+1141081793 	0	0 # interval length 59 seconds
+1141081823 	9.43	9.43
+1141081859 	6.33	6.33 # interval length 36 seconds
+1141081914 	0	0 # interval length 55 seconds
+1141081944 	10.9	10.9
+1141081976 	5.75	5.75 # interval length 32 seconds
+1141082036 	0	0 # interval length 60 seconds
+1141082066 	7.5	7.5
+1141082107 	6.97	6.97 # interval length 41 seconds
+1141082160 	0	0 # interval length 53 seconds
+1141082190 	10.8	10.8
+1141082222 	5.84	5.84 # interval length 32 seconds
+1141082280 	0	0 # interval length 58 seconds
+1141082310 	10.86	10.86
+1141082342 	5.81	5.81 # interval length 32 seconds
+1141082401 	0	0 # interval length 59 seconds
+1141082431 	10.73	10.73
+1141082463 	5.9	5.9 # interval length 32 seconds
+1141082522 	0	0 # interval length 59 seconds
+1141082552 	11.06	11.06
+1141082583 	5.77	5.77 # interval length 31 seconds
+1141082642 	0	0 # interval length 59 seconds
+1141082672 	10.86	10.86
+1141082703 	5.96	5.96 # interval length 31 seconds
+1141082763 	0	0 # interval length 60 seconds
+1141082793 	10.6	10.6
+1141082825 	6.06	6.06 # interval length 32 seconds
+1141082884 	0	0 # interval length 59 seconds
+1141082914 	11	11
+1141082945 	5.83	5.83 # interval length 31 seconds
+1141083005 	0	0 # interval length 60 seconds
+1141083035 	11.03	11.03
+1141083066 	5.83	5.83 # interval length 31 seconds
+1141083126 	0	0 # interval length 60 seconds
+1141083156 	10.83	10.83
+1141083187 	6	6 # interval length 31 seconds
+1141083248 	0	0 # interval length 61 seconds
+1141083278 	11.23	11.23
+1141083309 	5.61	5.61 # interval length 31 seconds
+1141083369 	0	0 # interval length 60 seconds
+1141083399 	10.66	10.66
+1141083431 	5.96	5.96 # interval length 32 seconds
+1141083490 	0	0 # interval length 59 seconds
+1141083520 	10.76	10.76
+1141083552 	5.9	5.9 # interval length 32 seconds
+1141083611 	0	0 # interval length 59 seconds
+1141083641 	10.76	10.76
+1141083673 	5.9	5.9 # interval length 32 seconds
+1141083732 	0	0 # interval length 59 seconds
+1141083762 	10.56	10.56
+1141083794 	6.06	6.06 # interval length 32 seconds
+1141083853 	0	0 # interval length 59 seconds
+1141083883 	10.83	10.83
+1141083915 	5.81	5.81 # interval length 32 seconds
+1141083974 	0	0 # interval length 59 seconds
+1141084004 	10.96	10.96
+1141084035 	5.87	5.87 # interval length 31 seconds
+1141084094 	0	0 # interval length 59 seconds
+1141084124 	10.4	10.4
+1141084157 	6.03	6.03 # interval length 33 seconds
+1141084218 	0	0 # interval length 61 seconds
+1141084248 	10.53	10.53
+1141084281 	5.9	5.9 # interval length 33 seconds
+1141084339 	0	0 # interval length 58 seconds
+1141084369 	10.9	10.9
+1141084401 	5.75	5.75 # interval length 32 seconds
+1141084459 	0	0 # interval length 58 seconds
+1141084489 	10.83	10.83
+1141084521 	5.84	5.84 # interval length 32 seconds
+1141084580 	0	0 # interval length 59 seconds
+1141084610 	10.83	10.83
+1141084642 	5.81	5.81 # interval length 32 seconds
+1141084701 	0	0 # interval length 59 seconds
+1141084731 	10.7	10.7
+1141084763 	5.96	5.96 # interval length 32 seconds
+1141084824 	0	0 # interval length 61 seconds
+1141084854 	11.03	11.03
+1141084885 	5.83	5.83 # interval length 31 seconds
+1141084945 	0	0 # interval length 60 seconds
+1141084975 	10.86	10.86
+1141085006 	5.96	5.96 # interval length 31 seconds
+1141085065 	0	0 # interval length 59 seconds
+1141085095 	10.9	10.86
+1141085127 	5.75	5.75 # interval length 32 seconds
+1141085189 	0	0 # interval length 62 seconds
+1141085219 	11.06	11.06
+1141085250 	5.77	5.77 # interval length 31 seconds
+1141085313 	0	0 # interval length 63 seconds
+1141085343 	10.63	10.63
+1141085375 	6	6 # interval length 32 seconds
+1141085435 	0	0 # interval length 60 seconds
+1141085465 	10.96	10.96
+1141085497 	5.68	5.68 # interval length 32 seconds
+1141085556 	0	0 # interval length 59 seconds
+1141085586 	10.76	10.73
+1141085618 	5.87	5.87 # interval length 32 seconds
+1141085677 	0	0 # interval length 59 seconds
+1141085707 	10.6	10.6
+1141085739 	6.03	6.03 # interval length 32 seconds
+1141085799 	0	0 # interval length 60 seconds
+1141085829 	11.03	11.03
+1141085861 	5.62	5.62 # interval length 32 seconds
+1141085919 	0	0 # interval length 58 seconds
+1141085949 	10.73	10.73
+1141085981 	5.9	5.9 # interval length 32 seconds
+1141086040 	0	0 # interval length 59 seconds
+1141086070 	10.73	10.73
+1141086102 	5.9	5.9 # interval length 32 seconds
+1141086163 	0	0 # interval length 61 seconds
+1141086193 	10.8	10.8
+1141086225 	5.84	5.84 # interval length 32 seconds
+1141086285 	0	0 # interval length 60 seconds
+1141086315 	11.06	11.06
+1141086346 	5.77	5.77 # interval length 31 seconds
+1141086406 	0	0 # interval length 60 seconds
+1141086436 	10.8	10.8
+1141086469 	5.66	5.66 # interval length 33 seconds
+1141086527 	0	0 # interval length 58 seconds
+1141086557 	10.7	10.7
+1141086589 	5.9	5.93 # interval length 32 seconds
+1141086648 	0	0 # interval length 59 seconds
+1141086678 	10.83	10.83
+1141086709 	6	6 # interval length 31 seconds
+1141086770 	0	0 # interval length 61 seconds
+1141086800 	10.96	10.96
+1141086832 	5.71	5.71 # interval length 32 seconds
+1141086893 	0	0 # interval length 61 seconds
+1141086923 	10.7	10.7
+1141086956 	5.78	5.78 # interval length 33 seconds
+1141087017 	0	0 # interval length 61 seconds
+1141087047 	10.96	10.96
+1141087080 	5.51	5.51 # interval length 33 seconds
+1141087141 	0	0 # interval length 61 seconds
+1141087175 	7.97	7.97 # interval length 34 seconds
+1141087212 	6.51	6.51 # interval length 37 seconds
+1141087263 	0	0 # interval length 51 seconds
+1141087293 	10.93	10.93
+1141087324 	5.9	5.9 # interval length 31 seconds
+1141087387 	0	0 # interval length 63 seconds
+1141087417 	10.63	10.63
+1141087449 	6	6 # interval length 32 seconds
+1141087511 	0	0 # interval length 62 seconds
+1141087541 	10.93	10.93
+1141087573 	5.71	5.71 # interval length 32 seconds
+1141087634 	0	0 # interval length 61 seconds
+1141087664 	10.86	10.86
+1141087696 	5.78	5.78 # interval length 32 seconds
+1141087756 	0	0 # interval length 60 seconds
+1141087786 	10.76	10.76
+1141087818 	5.87	5.87 # interval length 32 seconds
+1141087878 	0	0 # interval length 60 seconds
+1141087908 	10.83	10.83
+1141087940 	5.81	5.81 # interval length 32 seconds
+1141087999 	0	0 # interval length 59 seconds
+1141088029 	11	11
+1141088060 	5.83	5.83 # interval length 31 seconds
+1141088120 	0	0 # interval length 60 seconds
+1141088150 	10.73	10.73
+1141088182 	5.9	5.93 # interval length 32 seconds
+1141088242 	0	0 # interval length 60 seconds
+1141088272 	10.66	10.66
+1141088305 	5.78	5.78 # interval length 33 seconds
+1141088365 	0	0 # interval length 60 seconds
+1141088395 	10.7	10.7
+1141088427 	5.93	5.93 # interval length 32 seconds
+1141088490 	0	0 # interval length 63 seconds
+1141088520 	11.1	11.1
+1141088551 	5.74	5.74 # interval length 31 seconds
+1141088611 	0	0 # interval length 60 seconds
+1141088641 	10.46	10.46
+1141088674 	5.96	5.96 # interval length 33 seconds
+1141088733 	0	0 # interval length 59 seconds
+1141088763 	11	11
+1141088794 	5.83	5.83 # interval length 31 seconds
+1141088856 	0	0 # interval length 62 seconds
+1141088886 	10.56	10.56
+1141088918 	6.09	6.09 # interval length 32 seconds
+1141088980 	0	0 # interval length 62 seconds
+1141089010 	10.56	10.56
+1141089043 	5.87	5.87 # interval length 33 seconds
+1141089102 	0	0 # interval length 59 seconds
+1141089132 	10.8	10.8
+1141089164 	5.84	5.84 # interval length 32 seconds
+1141089226 	0	0 # interval length 62 seconds
+1141089256 	10.86	10.86
+1141089288 	5.78	5.78 # interval length 32 seconds
+1141089348 	0	0 # interval length 60 seconds
+1141089378 	10.93	10.93
+1141089410 	5.71	5.71 # interval length 32 seconds
+1141089471 	0	0 # interval length 61 seconds
+1141089501 	10.8	10.8
+1141089533 	5.84	5.84 # interval length 32 seconds
+1141089593 	0	0 # interval length 60 seconds
+1141089623 	10.8	10.8
+1141089655 	5.84	5.84 # interval length 32 seconds
+1141089717 	0	0 # interval length 62 seconds
+1141089747 	11.16	11.16
+1141089778 	5.7	5.7 # interval length 31 seconds
+1141089841 	0	0 # interval length 63 seconds
+1141089871 	11.06	11.06
+1141089902 	5.77	5.77 # interval length 31 seconds
+1141089962 	0	0 # interval length 60 seconds
+1141089992 	10.7	10.7
+1141090024 	5.93	5.93 # interval length 32 seconds
+1141090083 	0	0 # interval length 59 seconds
+1141090113 	10.7	10.7
+1141090145 	5.93	5.93 # interval length 32 seconds
+1141090207 	0	0 # interval length 62 seconds
+1141090237 	9.76	9.76
+1141090280 	5.09	5.09 # interval length 43 seconds
+1141090331 	0	0 # interval length 51 seconds
+1141090361 	10.93	10.93
+1141090393 	5.75	5.75 # interval length 32 seconds
+1141090452 	0	0 # interval length 59 seconds
+1141090482 	10.76	10.76
+1141090514 	5.87	5.87 # interval length 32 seconds
+1141090576 	0	0 # interval length 62 seconds
+1141090606 	10.6	10.6
+1141090638 	6.03	6.03 # interval length 32 seconds
+1141090701 	0	0 # interval length 63 seconds
+1141090731 	10.83	10.83
+1141090763 	5.84	5.84 # interval length 32 seconds
+1141090822 	0	0 # interval length 59 seconds
+1141090852 	10.9	10.9
+1141090883 	5.93	5.93 # interval length 31 seconds
+1141090943 	0	0 # interval length 60 seconds
+1141090973 	10.7	10.7
+1141091005 	5.93	5.93 # interval length 32 seconds
+1141091066 	0	0 # interval length 61 seconds
+1141091096 	10.6	10.6
+1141091129 	5.87	5.87 # interval length 33 seconds
+1141091190 	0	0 # interval length 61 seconds
+1141091220 	10.86	10.83
+1141091252 	5.78	5.78 # interval length 32 seconds
+1141091311 	0	0 # interval length 59 seconds
+1141091341 	10.73	10.73
+1141091373 	5.9	5.9 # interval length 32 seconds
+1141091436 	0	0 # interval length 63 seconds
+1141091466 	10.73	10.73
+1141091498 	5.93	5.93 # interval length 32 seconds
+1141091560 	0	0 # interval length 62 seconds
+1141091590 	10.9	10.9
+1141091621 	5.93	5.93 # interval length 31 seconds
+1141091685 	0	0 # interval length 64 seconds
+1141091715 	10.9	10.9
+1141091746 	5.93	5.93 # interval length 31 seconds
+1141091806 	0	0 # interval length 60 seconds
+1141091836 	10.76	10.76
+1141091868 	5.9	5.9 # interval length 32 seconds
+1141091931 	0	0 # interval length 63 seconds
+1141091961 	11	11
+1141091992 	5.87	5.87 # interval length 31 seconds
+1141092055 	0	0 # interval length 63 seconds
+1141092085 	10.83	10.83
+1141092116 	6	6 # interval length 31 seconds
+1141092179 	0	0 # interval length 63 seconds
+1141092209 	10.86	10.86
+1141092241 	5.81	5.81 # interval length 32 seconds
+1141092299 	0	0 # interval length 58 seconds
+1141092329 	10.7	10.7
+1141092361 	5.93	5.93 # interval length 32 seconds
+1141092420 	0	0 # interval length 59 seconds
+1141092450 	10.83	10.83
+1141092482 	5.81	5.81 # interval length 32 seconds
+1141092540 	0	0 # interval length 58 seconds
+1141092570 	10.76	10.76
+1141092602 	5.9	5.9 # interval length 32 seconds
+1141092661 	0	0 # interval length 59 seconds
+1141092691 	10.7	10.7
+1141092723 	5.93	5.93 # interval length 32 seconds
+1141092782 	0	0 # interval length 59 seconds
+1141092812 	10.93	10.93
+1141092844 	5.75	5.75 # interval length 32 seconds
+1141092902 	0	0 # interval length 58 seconds
+1141092932 	10.6	10.6
+1141092964 	6.03	6.03 # interval length 32 seconds
+1141093023 	0	0 # interval length 59 seconds
+1141093053 	10.96	10.96
+1141093085 	5.68	5.68 # interval length 32 seconds
+1141093143 	0	0 # interval length 58 seconds
+1141093173 	10.66	10.66
+1141093205 	6	6 # interval length 32 seconds
+1141093264 	0	0 # interval length 59 seconds
+1141093294 	10.56	10.56
+1141093337 	4.51	4.51 # interval length 43 seconds
+1141093386 	0	0 # interval length 49 seconds
+1141093416 	11.03	11.03
+1141093447 	5.8	5.8 # interval length 31 seconds
+1141093506 	0	0 # interval length 59 seconds
+1141093536 	10.3	10.3
+1141093569 	6.12	6.12 # interval length 33 seconds
+1141093630 	0	0 # interval length 61 seconds
+1141093660 	10.83	10.83
+1141093692 	5.81	5.81 # interval length 32 seconds
+1141093751 	0	0 # interval length 59 seconds
+1141093781 	10.93	10.93
+1141093813 	5.75	5.75 # interval length 32 seconds
+1141093875 	0	0 # interval length 62 seconds
+1141093905 	10.8	10.8
+1141093937 	5.84	5.84 # interval length 32 seconds
+1141093996 	0	0 # interval length 59 seconds
+1141094026 	10.73	10.73
+1141094058 	5.96	5.96 # interval length 32 seconds
+1141094117 	0	0 # interval length 59 seconds
+1141094147 	10.9	10.9
+1141094178 	5.93	5.93 # interval length 31 seconds
+1141094238 	0	0 # interval length 60 seconds
+1141094268 	10.16	10.16
+1141094302 	6.05	6.05 # interval length 34 seconds
+1141094359 	0	0 # interval length 57 seconds
+1141094389 	10.9	10.9
+1141094421 	5.75	5.75 # interval length 32 seconds
+1141094480 	0	0 # interval length 59 seconds
+1141094510 	10.86	10.86
+1141094541 	5.96	5.96 # interval length 31 seconds
+1141094601 	0	0 # interval length 60 seconds
+1141094631 	10.86	10.86
+1141094663 	5.78	5.78 # interval length 32 seconds
+1141094724 	0	0 # interval length 61 seconds
+1141094754 	11.1	11.06
+1141094785 	5.74	5.74 # interval length 31 seconds
+1141094848 	0	0 # interval length 63 seconds
+1141094878 	11.06	11.06
+1141094910 	5.62	5.62 # interval length 32 seconds
+1141094969 	0	0 # interval length 59 seconds
+1141094999 	10.83	10.83
+1141095031 	5.81	5.81 # interval length 32 seconds
+1141095090 	0	0 # interval length 59 seconds
+1141095120 	11.03	11.03
+1141095151 	5.8	5.83 # interval length 31 seconds
+1141095211 	0	0 # interval length 60 seconds
+1141095241 	10.63	10.63
+1141095273 	6.03	6.03 # interval length 32 seconds
+1141095332 	0	0 # interval length 59 seconds
+1141095369 	8.18	8.18 # interval length 37 seconds
+1141095403 	6.14	6.14 # interval length 34 seconds
+1141095453 	0	0 # interval length 50 seconds
+1141095483 	10.86	10.86
+1141095514 	5.96	5.96 # interval length 31 seconds
+1141095574 	0	0 # interval length 60 seconds
+1141095604 	10.6	10.6
+1141095636 	6.03	6.03 # interval length 32 seconds
+1141095698 	0	0 # interval length 62 seconds
+1141095728 	10.8	10.76
+1141095760 	5.84	5.84 # interval length 32 seconds
+1141095819 	0	0 # interval length 59 seconds
+1141095849 	10.73	10.73
+1141095881 	5.9	5.9 # interval length 32 seconds
+1141095942 	0	0 # interval length 61 seconds
+1141095972 	10.96	10.96
+1141096003 	5.87	5.87 # interval length 31 seconds
+1141096063 	0	0 # interval length 60 seconds
+1141096093 	10.7	10.7
+1141096126 	5.75	5.75 # interval length 33 seconds
+1141096184 	0	0 # interval length 58 seconds
+1141096214 	10.86	10.86
+1141096246 	5.81	5.81 # interval length 32 seconds
+1141096305 	0	0 # interval length 59 seconds
+1141096335 	10.86	10.86
+1141096367 	5.81	5.81 # interval length 32 seconds
+1141096426 	0	0 # interval length 59 seconds
+1141096456 	10.9	10.9
+1141096488 	5.78	5.78 # interval length 32 seconds
+1141096547 	0	0 # interval length 59 seconds
+1141096577 	10.93	10.93
+1141096608 	5.9	5.9 # interval length 31 seconds
+1141096668 	0	0 # interval length 60 seconds
+1141096698 	10.96	10.96
+1141096730 	5.71	5.71 # interval length 32 seconds
+1141096789 	0	0 # interval length 59 seconds
+1141096819 	10.83	10.83
+1141096851 	5.87	5.87 # interval length 32 seconds
+1141096911 	0	0 # interval length 60 seconds
+1141096941 	10.8	10.8
+1141096974 	5.69	5.69 # interval length 33 seconds
+1141097033 	0	0 # interval length 59 seconds
+1141097063 	11.03	11.03
+1141097095 	5.65	5.65 # interval length 32 seconds
+1141097155 	0	0 # interval length 60 seconds
+1141097185 	10.9	10.9
+1141097216 	5.93	5.93 # interval length 31 seconds
+1141097275 	0	0 # interval length 59 seconds
+1141097305 	10.6	10.6
+1141097338 	5.84	5.84 # interval length 33 seconds
+1141097397 	0	0 # interval length 59 seconds
+1141097427 	7.3	7.3
+1141097469 	6.95	6.95 # interval length 42 seconds
+1141097518 	0	0 # interval length 49 seconds
+1141097548 	10.8	10.8
+1141097580 	5.87	5.87 # interval length 32 seconds
+1141097641 	0	0 # interval length 61 seconds
+1141097671 	11	11
+1141097702 	5.87	5.87 # interval length 31 seconds
+1141097762 	0	0 # interval length 60 seconds
+1141097792 	11.13	11.13
+1141097823 	5.74	5.74 # interval length 31 seconds
+1141097883 	0	0 # interval length 60 seconds
+1141097913 	10.76	10.76
+1141097945 	5.87	5.87 # interval length 32 seconds
+1141098004 	0	0 # interval length 59 seconds
+1141098034 	10.86	10.86
+1141098066 	5.78	5.78 # interval length 32 seconds
+1141098125 	0	0 # interval length 59 seconds
+1141098155 	10.93	10.93
+1141098186 	5.9	5.9 # interval length 31 seconds
+1141098247 	0	0 # interval length 61 seconds
+1141098277 	10.8	10.8
+1141098309 	5.84	5.84 # interval length 32 seconds
+1141098371 	0	0 # interval length 62 seconds
+1141098401 	10.86	10.86
+1141098433 	5.78	5.78 # interval length 32 seconds
+1141098492 	0	0 # interval length 59 seconds
+1141098522 	10.8	10.8
+1141098554 	5.84	5.84 # interval length 32 seconds
+1141098614 	0	0 # interval length 60 seconds
+1141098644 	10.76	10.76
+1141098676 	5.87	5.87 # interval length 32 seconds
+1141098734 	0	0 # interval length 58 seconds
+1141098764 	10.73	10.73
+1141098796 	5.9	5.9 # interval length 32 seconds
+1141098856 	0	0 # interval length 60 seconds
+1141098886 	11.03	11.03
+1141098917 	5.8	5.8 # interval length 31 seconds
+1141098976 	0	0 # interval length 59 seconds
+1141099006 	10.56	10.56
+1141099039 	5.87	5.87 # interval length 33 seconds
+1141099097 	0	0 # interval length 58 seconds
+1141099127 	10.7	10.7
+1141099159 	5.96	5.96 # interval length 32 seconds
+1141099219 	0	0 # interval length 60 seconds
+1141099249 	10.86	10.86
+1141099281 	5.78	5.78 # interval length 32 seconds
+1141099340 	0	0 # interval length 59 seconds
+1141099370 	10.93	10.93
+1141099402 	5.75	5.75 # interval length 32 seconds
+1141099461 	0	0 # interval length 59 seconds
+1141099491 	10.3	10.3
+1141099524 	6.12	6.12 # interval length 33 seconds
+1141099582 	0	0 # interval length 58 seconds
+1141099612 	10.76	10.76
+1141099644 	5.9	5.9 # interval length 32 seconds
+1141099707 	0	0 # interval length 63 seconds
+1141099737 	10.9	10.9
+1141099769 	5.75	5.75 # interval length 32 seconds
+1141099828 	0	0 # interval length 59 seconds
+1141099858 	11.1	11.1
+1141099889 	5.74	5.74 # interval length 31 seconds
+1141099948 	0	0 # interval length 59 seconds
+1141099978 	10.56	10.56
+1141100010 	6.06	6.06 # interval length 32 seconds
+1141100070 	0	0 # interval length 60 seconds
+1141100100 	11.03	11.03
+1141100131 	5.8	5.8 # interval length 31 seconds
+1141100190 	0	0 # interval length 59 seconds
+1141100220 	9.86	9.83
+1141100255 	6.17	6.17 # interval length 35 seconds
+1141100311 	0	0 # interval length 56 seconds
+1141100341 	10.5	10.5
+1141100373 	6.12	6.12 # interval length 32 seconds
+1141100432 	0	0 # interval length 59 seconds
+1141100462 	10.7	10.7
+1141100494 	5.96	5.96 # interval length 32 seconds
+1141100554 	0	0 # interval length 60 seconds
+1141100584 	11	11
+1141100615 	5.87	5.87 # interval length 31 seconds
+1141100675 	0	0 # interval length 60 seconds
+1141100705 	9.73	9.73
+1141100735 	7.26	7.26
+1141100796 	0.01	0.01 # interval length 61 seconds
+1141100826 	10.83	10.83
+1141100858 	5.84	5.84 # interval length 32 seconds
+1141100919 	0	0 # interval length 61 seconds
+1141100949 	7.8	7.8
+1141100990 	6.78	6.78 # interval length 41 seconds
+1141101039 	0	0 # interval length 49 seconds
+1141101069 	7.46	7.46
+1141101110 	7	7 # interval length 41 seconds
+1141101160 	0	0 # interval length 50 seconds
+1141101190 	7.33	7.33
+1141101232 	6.95	6.95 # interval length 42 seconds
+1141101281 	0	0 # interval length 49 seconds
+1141101311 	7.53	7.53
+1141101352 	6.95	6.95 # interval length 41 seconds
+1141101402 	0	0 # interval length 50 seconds
+1141101432 	11	11
+1141101463 	5.87	5.87 # interval length 31 seconds
+1141101523 	0	0 # interval length 60 seconds
+1141101553 	11.03	11.03
+1141101585 	5.65	5.65 # interval length 32 seconds
+1141101646 	0	0 # interval length 61 seconds
+1141101676 	10.9	10.9
+1141101707 	5.93	5.93 # interval length 31 seconds
+1141101767 	0	0 # interval length 60 seconds
+1141101797 	10.9	10.9
+1141101828 	5.93	5.93 # interval length 31 seconds
+1141101888 	0	0 # interval length 60 seconds
+1141101918 	10.8	10.8
+1141101950 	5.84	5.84 # interval length 32 seconds
+1141102009 	0	0 # interval length 59 seconds
+1141102039 	10.86	10.86
+1141102071 	5.81	5.81 # interval length 32 seconds
+1141102130 	0	0 # interval length 59 seconds
+1141102160 	10.8	10.8
+1141102192 	5.84	5.87 # interval length 32 seconds
+1141102251 	0	0 # interval length 59 seconds
+1141102281 	11.13	11.13
+1141102312 	5.7	5.7 # interval length 31 seconds
+1141102372 	0	0 # interval length 60 seconds
+1141102402 	10.93	10.93
+1141102433 	5.93	5.93 # interval length 31 seconds
+1141102493 	0	0 # interval length 60 seconds
+1141102523 	10.96	10.96
+1141102555 	5.71	5.71 # interval length 32 seconds
+1141102614 	0	0 # interval length 59 seconds
+1141102644 	10.86	10.86
+1141102676 	5.81	5.81 # interval length 32 seconds
+1141102735 	0	0 # interval length 59 seconds
+1141102765 	10.76	10.76
+1141102797 	5.87	5.87 # interval length 32 seconds
+1141102857 	0	0 # interval length 60 seconds
+1141102887 	10.16	10.16
+1141102924 	5.56	5.56 # interval length 37 seconds
+1141102978 	0	0 # interval length 54 seconds
+1141103008 	9.73	9.73
+1141103044 	6.11	6.11 # interval length 36 seconds
+1141103100 	0	0 # interval length 56 seconds
+1141103130 	10.83	10.83
+1141103162 	5.81	5.81 # interval length 32 seconds
+1141103223 	0	0 # interval length 61 seconds
+1141103253 	10.8	10.8
+1141103284 	6.03	6.03 # interval length 31 seconds
+1141103344 	0	0 # interval length 60 seconds
+1141103374 	10.56	10.56
+1141103407 	5.87	5.87 # interval length 33 seconds
+1141103468 	0	0 # interval length 61 seconds
+1141103498 	10.76	10.76
+1141103530 	5.87	5.87 # interval length 32 seconds
+1141103592 	0	0 # interval length 62 seconds
+1141103622 	10.73	10.73
+1141103654 	5.93	5.93 # interval length 32 seconds
+1141103713 	0	0 # interval length 59 seconds
+1141103743 	11.13	11.13
+1141103774 	5.7	5.74 # interval length 31 seconds
+1141103833 	0	0 # interval length 59 seconds
+1141103863 	10.46	10.46
+1141103896 	5.96	5.96 # interval length 33 seconds
+1141103954 	0	0 # interval length 58 seconds
+1141103984 	10.9	10.9
+1141104016 	5.75	5.75 # interval length 32 seconds
+1141104074 	0	0 # interval length 58 seconds
+1141104104 	10.56	10.56
+1141104137 	5.87	5.87 # interval length 33 seconds
+1141104197 	0	0 # interval length 60 seconds
+1141104227 	10.86	10.86
+1141104259 	5.78	5.78 # interval length 32 seconds
+1141104319 	0	0 # interval length 60 seconds
+1141104349 	10.5	10.5
+1141104382 	5.93	5.93 # interval length 33 seconds
+1141104443 	0	0 # interval length 61 seconds
+1141104473 	10.9	10.9
+1141104505 	5.75	5.75 # interval length 32 seconds
+1141104564 	0	0 # interval length 59 seconds
+1141104594 	10.63	10.63
+1141104626 	6.03	6.03 # interval length 32 seconds
+1141104686 	0	0 # interval length 60 seconds
+1141104716 	10.63	10.63
+1141104748 	6.03	6.03 # interval length 32 seconds
+1141104807 	0	0 # interval length 59 seconds
+1141104837 	10.7	10.7
+1141104869 	5.96	5.96 # interval length 32 seconds
+1141104928 	0	0 # interval length 59 seconds
+1141104958 	10.43	10.43
+1141104991 	6	6 # interval length 33 seconds
+1141105049 	0	0 # interval length 58 seconds
+1141105079 	8.83	8.83
+1141105117 	6.47	6.47 # interval length 38 seconds
+1141105173 	0	0 # interval length 56 seconds
+1141105203 	10.83	10.83
+1141105235 	5.81	5.81 # interval length 32 seconds
+1141105293 	0	0 # interval length 58 seconds
+1141105323 	10.43	10.43
+1141105356 	6.03	6.03 # interval length 33 seconds
+1141105414 	0	0 # interval length 58 seconds
+1141105444 	10.73	10.73
+1141105476 	5.9	5.9 # interval length 32 seconds
+1141105535 	0	0 # interval length 59 seconds
+1141105565 	10.56	10.56
+1141105598 	5.87	5.87 # interval length 33 seconds
+1141105656 	0	0 # interval length 58 seconds
+1141105686 	10.8	10.8
+1141105718 	5.84	5.84 # interval length 32 seconds
+1141105777 	0	0 # interval length 59 seconds
+1141105807 	10.63	10.63
+1141105840 	5.84	5.84 # interval length 33 seconds
+1141105898 	0	0 # interval length 58 seconds
+1141105928 	10.9	10.9
+1141105960 	5.75	5.75 # interval length 32 seconds
+1141106018 	0	0 # interval length 58 seconds
+1141106048 	10.36	10.36
+1141106081 	6.06	6.06 # interval length 33 seconds
+1141106139 	0	0 # interval length 58 seconds
+1141106169 	10.63	10.63
+1141106201 	6	6 # interval length 32 seconds
+1141106260 	0	0 # interval length 59 seconds
+1141106290 	10.9	10.9
+1141106322 	5.75	5.75 # interval length 32 seconds
+1141106380 	0	0 # interval length 58 seconds
+1141106410 	10.3	10.3
+1141106444 	5.97	5.97 # interval length 34 seconds
+1141106501 	0	0 # interval length 57 seconds
+1141106531 	10.63	10.63
+1141106563 	6	6 # interval length 32 seconds
+1141106622 	0	0 # interval length 59 seconds
+1141106652 	10.76	10.76
+1141106684 	5.87	5.87 # interval length 32 seconds
+1141106743 	0	0 # interval length 59 seconds
+1141106773 	10.5	10.5
+1141106806 	5.93	5.93 # interval length 33 seconds
+1141106864 	0	0 # interval length 58 seconds
+1141106894 	10.43	10.43
+1141106927 	6	6 # interval length 33 seconds
+1141106985 	0.01	0.01 # interval length 58 seconds
+1141107015 	9.56	9.56
+1141107050 	6.42	6.42 # interval length 35 seconds
+1141107106 	0	0 # interval length 56 seconds
+1141107136 	10.7	10.7
+1141107171 	5.45	5.45 # interval length 35 seconds
+1141107230 	0	0 # interval length 59 seconds
+1141107260 	10.93	10.93
+1141107291 	5.96	5.96 # interval length 31 seconds
+1141107323 	0	0 # interval length 32 seconds
+1141107353 	0.7	0.7
+1141107383 	11.1	11.1
+1141107439 	2.82	2.82 # interval length 56 seconds
+1141107471 	0.03	0.03 # interval length 32 seconds
+1141107501 	10.63	10.63
+1141107533 	6.03	6.03 # interval length 32 seconds
+1141107594 	0.01	0.01 # interval length 61 seconds
+1141107624 	10.63	10.63
+1141107660 	5.36	5.36 # interval length 36 seconds
+1141107702 	0	0 # interval length 42 seconds
+1141107732 	5.73	5.73
+1141107762 	11	11
+1141107818 	0.19	0.19 # interval length 56 seconds
+1141107848 	2.9	2.9
+1141107878 	10.83	10.83
+1141107933 	1.83	1.83 # interval length 55 seconds
+1141107963 	1.13	1.13
+1141107993 	9.6	9.6
+1141108026 	5.81	5.81 # interval length 33 seconds
+1141108080 	0	0 # interval length 54 seconds
+1141108110 	10.66	10.66
+1141108142 	6.03	6.03 # interval length 32 seconds
+1141108196 	0.01	0.01 # interval length 54 seconds
+1141108226 	8.46	8.46
+1141108264 	6.78	6.78 # interval length 38 seconds
+1141108312 	0.02	0.02 # interval length 48 seconds
+1141108342 	6.46	6.46
+1141108385 	7.41	7.41 # interval length 43 seconds
+1141108448 	0.01	0.01 # interval length 63 seconds
+1141108478 	10.93	10.93
+1141108510 	5.81	5.81 # interval length 32 seconds
+1141108540 	0	0
+1141108570 	0.73	0.73
+1141108600 	11	11
+1141108633 	4.87	4.87 # interval length 33 seconds
+1141108688 	0.01	0.01 # interval length 55 seconds
+1141108718 	10.76	10.76

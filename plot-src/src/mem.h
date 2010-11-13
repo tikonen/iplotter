@@ -1,0 +1,82 @@
+#ifndef __xcpp_mem_xh
+#define __xcpp_mem_xh
+/*
+ * Plot - plot time-based data on screen and to file with interactive controls
+ * Copyright (C) 2006  Jonas Berlin <xkr47@outerspace.dyndns.org>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ ****
+ * mem - define memory allocation routines to use
+ */
+
+#include <stdlib.h>
+#include <string.h>
+
+#if defined(__APPLE__)
+#include <stdio.h>
+
+static inline void *malloc_c(size_t size) {
+   void *p = malloc(size);
+   if(!p) {
+      fprintf(stderr, "OOME\n");
+      exit(1);
+   }
+   return p;
+}
+
+static inline void *zmalloc_c(size_t size) {
+   void *p = malloc_c(size);
+   bzero(p, size);
+   return p;
+}
+
+static inline void *realloc_c(void *old, size_t size) {
+   void *p = realloc(old, size);
+   if(!p) {
+      fprintf(stderr, "OOME\n");
+      exit(1);
+   }
+   return p;
+}
+
+#else
+
+#include <glib.h>
+
+#define malloc_c g_malloc
+#define zmalloc_c g_malloc0
+
+/*
+#define assert(must_be_true) do { if(!(must_be_true)) { fprintf(stderr, "Assertion '%s' failed on %s:%d\n", #must_be_true, __FILE__, __LINE__); exit(1); }} while(0)
+static inline void *realloc_c(void *old, size_t size) {
+   void *p = g_realloc(old, size);
+   assert(p);
+   return p;
+}
+*/
+#define realloc_c g_realloc
+
+#define free(x) g_free((void*)x)
+
+#endif
+
+/*
+ * Local variables:
+ * c-file-style: "ellemtel"
+ * c-file-offsets: ((c . c-lineup-dont-change) (statement-cont . (lambda (le) (if (save-excursion (goto-char (cdr le)) (looking-at "return")) (c-lineup-java-inher le) (c-lineup-math le)))))
+ * End:
+ */
+#endif

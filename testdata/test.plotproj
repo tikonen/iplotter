@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  
+  <!-- datafiles -->
+  <datafile>
+    <!-- Path of file -->
+    <path>/Users/teemu/projects/testdata/connection-lt.txt</path>
+
+    <!-- Name of dataset (OPTIONAL) -->
+    <name>CONNECT</name>
+
+    <!-- lines (OPTIONAL) -->
+    <line>
+      <!-- line column index -->
+      <column>1</column>
+
+      <!-- name of line -->
+      <name>INCLT</name>
+    </line>
+    <line>
+      <column>2</column>
+      <name>OUTLT</name>
+    </line>
+  </datafile>
+  <datafile>
+    <path>/Users/teemu/projects/testdata/tryconn-freq.txt</path>
+    <name>TRY</name>
+    <line>
+      <column>1</column>
+      <name>Cumulative</name>
+    </line>
+    <line>
+      <column>2</column>
+      <name>CONNECTED</name>
+    </line>
+  </datafile>
+
+  <!-- bookmarks (OPTIONAL) -->
+
+  <bookmark>
+    <!-- bookmark timestamp in seconds -->
+    <timestamp>1138830213</timestamp>
+
+    <!-- bookmark note text (OPTIONAL) -->
+    <note>jiodh8903 434</note>
+  </bookmark>
+  <bookmark>
+    <timestamp>1138853675</timestamp>
+    <note>oooadosadojj</note>
+  </bookmark>
+  <bookmark>
+    <timestamp>1138896928</timestamp>
+    <note>BOoaksdasd</note>
+  </bookmark>
+  
+  <!- samples per pixel (OPTIONAL) -->
+  <spp>4</spp>
+</project>

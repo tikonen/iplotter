@@ -1,4 +1,4 @@
-RELEASENOTES iPlotter (Build $Revision$)
+RELEASENOTES iPlotter 
 
 Minimum requirements
 
